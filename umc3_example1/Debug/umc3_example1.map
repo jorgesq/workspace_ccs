@@ -1,7 +1,7 @@
 ******************************************************************************
              TMS320C2000 Linker PC v6.4.10                     
 ******************************************************************************
->> Linked Sat Jun 18 17:29:16 2016
+>> Linked Sat Jun 18 18:00:15 2016
 
 OUTPUT FILE NAME:   <umc3_example1.out>
 ENTRY POINT SYMBOL: "_c_int00"  address: 0000a84c
@@ -14,7 +14,7 @@ MEMORY CONFIGURATION
 PAGE 0:
   BEGIN                 00000000   00000002  00000002  00000000  RWIX
   RAMM0                 00000050   000003b0  000000ed  000002c3  RWIX
-  RAML0_L8              00008000   0000b800  00002dec  00008a14  RWIX
+  RAML0_L8              00008000   0000b800  00002e50  000089b0  RWIX
   FPUTABLES             003fd590   000006a0  00000000  000006a0  RWIX
   IQTABLES              003fdc30   00000b50  00000b50  00000000  RWIX
   IQTABLES2             003fe780   0000008c  00000000  0000008c  RWIX
@@ -96,7 +96,7 @@ ramfuncs   0    00000107    00000036
 .reset     0    003fffc0    00000002     DSECT
                   003fffc0    00000002     rts2800_fpu32.lib : boot.obj (.reset)
 
-.ebss      0    0000aae0    0000023c     UNINITIALIZED
+.ebss      0    0000aae0    000002a0     UNINITIALIZED
                   0000aae0    00000004     rts2800_fpu32.lib : exit.obj (.ebss)
                   0000aae4    00000002                       : _lock.obj (.ebss:__lock)
                   0000aae6    00000002                       : _lock.obj (.ebss:__unlock)
@@ -106,17 +106,19 @@ ramfuncs   0    00000107    00000036
                   0000ab00    0000016c     main.obj (.ebss)
                   0000ac6c    00000014     --HOLE--
                   0000ac80    0000009c     hal.obj (.ebss)
+                  0000ad1c    00000024     --HOLE--
+                  0000ad40    00000040     ecan_new.obj (.ebss)
 
-IQmath     0    0000ad1c    000000a8     
-                  0000ad1c    00000042     IQmath_fpu32.lib : IQ24sqrt.obj (IQmath)
-                  0000ad5e    00000029                      : IQ24sinPU.obj (IQmath)
-                  0000ad87    00000027                      : IQ24cosPU.obj (IQmath)
-                  0000adae    00000016                      : IQ30toF.obj (IQmath)
+IQmath     0    0000ad80    000000a8     
+                  0000ad80    00000042     IQmath_fpu32.lib : IQ24sqrt.obj (IQmath)
+                  0000adc2    00000029                      : IQ24sinPU.obj (IQmath)
+                  0000adeb    00000027                      : IQ24cosPU.obj (IQmath)
+                  0000ae12    00000016                      : IQ30toF.obj (IQmath)
 
-.econst    0    0000adc4    00000028     
-                  0000adc4    0000001c     ctrl.obj (.econst)
-                  0000ade0    00000008     user.obj (.econst)
-                  0000ade8    00000004     hal.obj (.econst)
+.econst    0    0000ae28    00000028     
+                  0000ae28    0000001c     ctrl.obj (.econst)
+                  0000ae44    00000008     user.obj (.econst)
+                  0000ae4c    00000004     hal.obj (.econst)
 
 IQmathTables 
 *          0    003fdc30    00000b50     NOLOAD SECTION
@@ -150,6 +152,8 @@ address     data page           name
 0000abc0     2af (0000abc0)     _gUserParams
 
 0000ac80     2b2 (0000ac80)     _hal
+
+0000ad40     2b5 (0000ad40)     _CanaShadow
 
 003fdc30    ff70 (003fdc00)     _IQsinTable
 
@@ -360,6 +364,7 @@ abs   003f996a  _CTRL_setupEstOnLineState
 abs   003f9806  _CTRL_setupTraj                                  
 0     00008bea  _CTRL_setup_user                                 
 0     00008b37  _CTRL_updateState                                
+0     0000ad40  _CanaShadow                                      
 abs   003f9760  _EST_doCurrentCtrl                               
 abs   003f9758  _EST_doSpeedCtrl                                 
 abs   003f8c0d  _EST_getAngle_pu                                 
@@ -709,10 +714,10 @@ abs   00000036  _RamfuncsLoadSize
 0     0000a811  _WDOG_init                                       
 0     0000a80f  _WDOG_setCount                                   
 0     0000a805  _WDOG_setPreScaler                               
-0     0000ad87  __IQ24cosPU                                      
-0     0000ad5e  __IQ24sinPU                                      
-0     0000ad1c  __IQ24sqrt                                       
-0     0000adae  __IQ30toF                                        
+0     0000adeb  __IQ24cosPU                                      
+0     0000adc2  __IQ24sinPU                                      
+0     0000ad80  __IQ24sqrt                                       
+0     0000ae12  __IQ30toF                                        
 1     000007b0  __STACK_END                                      
 abs   000003b0  __STACK_SIZE                                     
 0     0000aae0  ___TI_cleanup_ptr                                
@@ -1206,10 +1211,11 @@ page  address   name
 0     0000ab40  _gMotorVars                                      
 0     0000abc0  _gUserParams                                     
 0     0000ac80  _hal                                             
-0     0000ad1c  __IQ24sqrt                                       
-0     0000ad5e  __IQ24sinPU                                      
-0     0000ad87  __IQ24cosPU                                      
-0     0000adae  __IQ30toF                                        
+0     0000ad40  _CanaShadow                                      
+0     0000ad80  __IQ24sqrt                                       
+0     0000adc2  __IQ24sinPU                                      
+0     0000adeb  __IQ24cosPU                                      
+0     0000ae12  __IQ30toF                                        
 0     003fdc30  _IQsinTable                                      
 0     003fdd30  _IQcosTable                                      
 0     003fe030  _IQsinTableEnd                                   
@@ -1306,4 +1312,4 @@ abs   ffffffff  ___pinit__
 abs   ffffffff  binit                                            
 abs   ffffffff  pinit                                            
 
-[540 symbols]
+[541 symbols]

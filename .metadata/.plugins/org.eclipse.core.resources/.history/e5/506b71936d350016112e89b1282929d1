@@ -20,7 +20,6 @@ C:/work/git/umclib/modules/clarke/src/32b/clarke.c \
 C:/work/git/umclib/drivers/clk/src/32b/f28x/f2806x/clk.c \
 C:/work/git/umclib/drivers/cpu/src/32b/f28x/f2806x/cpu.c \
 C:/work/git/umclib/modules/ctrl/src/32b/ctrl.c \
-C:/work/git/umclib/drivers/can/src/32b/f28x/f2806x/ecan_new.c \
 C:/work/git/umclib/modules/filter/src/32b/filter_fo.c \
 C:/work/git/umclib/drivers/flash/src/32b/f28x/f2806x/flash.c \
 C:/work/git/umclib/drivers/gpio/src/32b/f28x/f2806x/gpio.c \
@@ -50,7 +49,6 @@ OBJS += \
 ./clk.obj \
 ./cpu.obj \
 ./ctrl.obj \
-./ecan_new.obj \
 ./filter_fo.obj \
 ./flash.obj \
 ./gpio.obj \
@@ -84,7 +82,6 @@ C_DEPS += \
 ./clk.pp \
 ./cpu.pp \
 ./ctrl.pp \
-./ecan_new.pp \
 ./filter_fo.pp \
 ./flash.pp \
 ./gpio.pp \
@@ -113,7 +110,6 @@ C_DEPS__QUOTED += \
 "clk.pp" \
 "cpu.pp" \
 "ctrl.pp" \
-"ecan_new.pp" \
 "filter_fo.pp" \
 "flash.pp" \
 "gpio.pp" \
@@ -143,7 +139,6 @@ OBJS__QUOTED += \
 "clk.obj" \
 "cpu.obj" \
 "ctrl.obj" \
-"ecan_new.obj" \
 "filter_fo.obj" \
 "flash.obj" \
 "gpio.obj" \
@@ -181,7 +176,6 @@ C_SRCS__QUOTED += \
 "C:/work/git/umclib/drivers/clk/src/32b/f28x/f2806x/clk.c" \
 "C:/work/git/umclib/drivers/cpu/src/32b/f28x/f2806x/cpu.c" \
 "C:/work/git/umclib/modules/ctrl/src/32b/ctrl.c" \
-"C:/work/git/umclib/drivers/can/src/32b/f28x/f2806x/ecan_new.c" \
 "C:/work/git/umclib/modules/filter/src/32b/filter_fo.c" \
 "C:/work/git/umclib/drivers/flash/src/32b/f28x/f2806x/flash.c" \
 "C:/work/git/umclib/drivers/gpio/src/32b/f28x/f2806x/gpio.c" \

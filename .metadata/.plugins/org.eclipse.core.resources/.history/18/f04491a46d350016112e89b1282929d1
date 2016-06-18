@@ -1,0 +1,555 @@
+/* --COPYRIGHT--,BSD
+ * Copyright (c) 2012, Texas Instruments Incorporated
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *
+ * *  Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *
+ * *  Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ *
+ * *  Neither the name of Texas Instruments Incorporated nor the names of
+ *    its contributors may be used to endorse or promote products derived
+ *    from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+ * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+ * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+ * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+ * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+ * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+ * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+ * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
+ * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * --/COPYRIGHT--*/
+//! \file   drivers/can/src/32b/f28x/f2806x/ecan_new.c
+//! \brief  Contains the various functions related to the 
+//!         enhanced CAN module (eCAN) object
+//!
+//! (C) Copyright 2011, Texas Instruments, Inc.
+
+
+// **************************************************************************
+// the includes
+
+#include "sw/drivers/can/src/32b/f28x/f2806x/ecan_new.h"
+#include "user.h"
+
+
+// **************************************************************************
+// the defines
+
+
+// **************************************************************************
+// the globals
+CAN_CTRL CanaShadow;
+
+// **************************************************************************
+// the functions
+
+//! \brief Clear the Acknowledge Bit in CANA to clear the interrupt bit in CANGIF0 as well
+//! \param[in] canHandle			The enhanced CAN module (eCAN) object handle
+//! \param[in] InterruptBit			Any combination of the CANGIM_Bits-defines.
+extern void CAN_clearGlobalInt(CAN_Handle canHandle, const uint32_t InterruptBit)
+{
+	CAN_Obj *can = (CAN_Obj *)canHandle;
+	CanaShadow.CANGIF0 = 0x00000000;
+	CanaShadow.CANGIF0 |= InterruptBit;
+	can->CANCTRL.CANGIF0 = CanaShadow.CANGIF0;
+	can->CANCTRL.CANGIF1 = CanaShadow.CANGIF0;
+
+	return;
+}
+
+
+//! \brief Clear Receive Message Pending Bit (also clears the Message Lost Bit)
+//! \param[in] canHandle			The enhanced CAN module (eCAN) object handle
+//! \param[in] MailboxBit			Bit of the Mailbox. Any combination of the CAN_MBOX-defines.
+void CAN_clearRxInt(CAN_Handle canHandle, const uint32_t MailboxBit)
+{
+	CAN_Obj *can = (CAN_Obj *)canHandle;
+	CanaShadow.CANRMP = 0x00000000;
+	CanaShadow.CANRMP |= MailboxBit;
+	can->CANCTRL.CANRMP = CanaShadow.CANRMP;
+
+	return;
+}
+
+
+//! \brief Clear the Acknowledge Bit in CANA to clear the interrupt bit in CANGIF0 as well
+//! \param[in] canHandle			The enhanced CAN module (eCAN) object handle
+//! \param[in] MailboxBit			Bit of the Mailbox. Any combination of the CAN_MBOX-defines.
+void CAN_clearTxInt(CAN_Handle canHandle, const uint32_t MailboxBit)
+{
+	CAN_Obj *can = (CAN_Obj *)canHandle;
+	CanaShadow.CANTA = 0x00000000;
+	CanaShadow.CANTA |= MailboxBit;
+	can->CANCTRL.CANTA = CanaShadow.CANTA;
+
+	return;
+}
+
+
+//! \brief Enable global interrupt
+//! \param[in] canHandle			The enhanced CAN module (eCAN) object handle
+//! \param[in] InterruptBit			Bit of the Interrupt. Any combination of the CANGIM_Bits-defines.
+void CAN_enableGlobalInt(CAN_Handle canHandle, const uint32_t InerruptBit)
+{
+	EALLOW;
+	CAN_Obj *can = (CAN_Obj *)canHandle;
+	CanaShadow.CANGIM = can->CANCTRL.CANGIM;
+	CanaShadow.CANGIM |= InerruptBit;
+	can->CANCTRL.CANGIM = CanaShadow.CANGIM;
+	EDIS;
+	return;
+}
+
+
+//! \brief Enable a Mailbox
+//! \param[in] canHandle			The enhanced CAN module (eCAN) object handle
+//! \param[in] MailboxBit			Bit of the Mailbox. Any combination of the CAN_MBOX-defines.
+void CAN_enableMailbox(CAN_Handle canHandle, const uint32_t MailboxBit)
+{
+	CAN_Obj *can = (CAN_Obj *)canHandle;
+	CanaShadow.CANME |= MailboxBit;
+	can->CANCTRL.CANME = CanaShadow.CANME;
+	return;
+}
+
+
+//! \brief Enable Rx/Tx interrupt
+//! \param[in] canHandle			The enhanced CAN module (eCAN) object handle
+//! \param[in] MailboxBit			Bit of the Mailbox. Any combination of the CAN_MBOX-defines.
+void CAN_enableMailboxInt(CAN_Handle canHandle, const uint32_t MailboxBit)
+{
+	CAN_Obj *can = (CAN_Obj *)canHandle;
+	EALLOW;
+	CanaShadow.CANMIM = can->CANCTRL.CANMIM;
+	CanaShadow.CANMIM |= MailboxBit;
+	can->CANCTRL.CANMIM = CanaShadow.CANMIM;
+	EDIS;
+	return;
+}
+
+
+//! \brief Enable the CAN Pins for Rx and Tx
+//! \param[in] canHandle			The enhanced CAN module (eCAN) object handle
+void CAN_enablePins(CAN_Handle canHandle)
+{
+	CAN_Obj *can = (CAN_Obj *)canHandle;
+	EALLOW;
+	CanaShadow.CANTIOC = can->CANCTRL.CANTIOC;
+	CanaShadow.CANTIOC |= CANIOCR_Bits_TXFUNC;
+	can->CANCTRL.CANTIOC = CanaShadow.CANTIOC;
+	
+	CanaShadow.CANRIOC = can->CANCTRL.CANRIOC;
+	CanaShadow.CANRIOC |= CANIOCR_Bits_RXFUNC;
+	can->CANCTRL.CANRIOC = CanaShadow.CANRIOC;
+	EDIS;
+	return;
+}
+
+
+//! \brief Disable global interrupt
+//! \param[in] canHandle			The enhanced CAN module (eCAN) object handle
+//! \param[in] InterruptBit			Bit of the Interrupt. Any combination of the CANGIM_Bits-defines.
+void CAN_disableGlobalInt(CAN_Handle canHandle, const uint32_t InerruptBit)
+{
+	CAN_Obj *can = (CAN_Obj *)canHandle;
+	CanaShadow.CANGIM = can->CANCTRL.CANGIM;
+	CanaShadow.CANGIM &= (~InerruptBit);
+	can->CANCTRL.CANGIM = CanaShadow.CANGIM;
+
+	return;
+}
+
+
+//! \brief Disable a Mailbox
+//! \param[in] canHandle			The enhanced CAN module (eCAN) object handle
+//! \param[in] MailboxBit		Number of the Mailbox. Any combination of the CAN_MBOX-defines.
+void CAN_disableMailbox(CAN_Handle canHandle, const uint32_t MailboxBit)
+{
+	CAN_Obj *can = (CAN_Obj *)canHandle;
+	CanaShadow.CANME &= (~MailboxBit);
+	can->CANCTRL.CANME = CanaShadow.CANME;
+	return;
+}
+
+
+//! \brief Disable Rx/Tx interrupt
+//! \param[in] canHandle			The enhanced CAN module (eCAN) object handle
+//! \param[in] MailboxBit			Bit of the Mailbox. Any combination of the CAN_MBOX-defines.
+void CAN_disableMailboxInt(CAN_Handle canHandle, const uint32_t MailboxBit)
+{
+	CAN_Obj *can = (CAN_Obj *)canHandle;
+	EALLOW;
+	CanaShadow.CANMIM = can->CANCTRL.CANMIM;
+	CanaShadow.CANMIM &= (~MailboxBit);
+	can->CANCTRL.CANMIM = CanaShadow.CANMIM;
+	EDIS;
+	return;
+}
+
+
+//! \brief Disable the CAN Pins for Rx and Tx
+//! \param[in] canHandle			The enhanced CAN module (eCAN) object handle
+void CAN_disablePins(CAN_Handle canHandle)
+{
+	CAN_Obj *can = (CAN_Obj *)canHandle;
+	CanaShadow.CANTIOC = can->CANCTRL.CANTIOC;
+	CanaShadow.CANTIOC &= (~CANIOCR_Bits_TXFUNC);
+	can->CANCTRL.CANTIOC = CanaShadow.CANTIOC;
+	
+	CanaShadow.CANRIOC = can->CANCTRL.CANRIOC;
+	CanaShadow.CANRIOC &= (~CANIOCR_Bits_RXFUNC);
+	can->CANCTRL.CANRIOC = CanaShadow.CANRIOC;
+	
+	return;
+}
+
+
+//! \brief Init CAN module at the right address
+//! \param[in] pMemory					BASE_ADDRESS of the CAN module
+//! \param[in] numBytes					SIZE of the CAN Object
+CAN_Handle CAN_init(void *pMemory,const size_t numBytes)
+{
+  CAN_Handle canHandle;
+
+
+  if(numBytes < sizeof(CAN_Obj))
+    return((CAN_Handle)NULL);
+
+
+  // assign the handle
+  canHandle = (CAN_Handle)pMemory;
+
+  return(canHandle);
+} // end of CAN_init() function
+
+
+//! \brief Read one Data-Byte from a specified Mailbox
+//! \param[in] canHandle			The enhanced CAN module (eCAN) object handle
+//! \param[in] mboxNum				Number of the Mailbox
+//! \param[in] byteIndex			Index of the Byte to read
+uint16_t CAN_readByte(CAN_Handle canHandle, const CAN_MboxNum_e mboxNum, const uint16_t byteIndex)
+{
+	CAN_Obj *can = (CAN_Obj *)canHandle;
+	uint16_t tempByte;
+	switch(byteIndex)
+	{
+		case 0:
+			tempByte = (uint16_t)(can->CANMBOX[mboxNum].CANMSG.BYTES.MB_0);
+		break;
+		case 1:
+			tempByte = (uint16_t)(can->CANMBOX[mboxNum].CANMSG.BYTES.MB_1);
+		break;
+		case 2:
+			tempByte = (uint16_t)(can->CANMBOX[mboxNum].CANMSG.BYTES.MB_2);
+		break;
+		case 3:
+			tempByte = (uint16_t)(can->CANMBOX[mboxNum].CANMSG.BYTES.MB_3);
+		break;
+		case 4:
+			tempByte = (uint16_t)(can->CANMBOX[mboxNum].CANMSG.BYTES.MB_4);
+		break;
+		case 5:
+			tempByte = (uint16_t)(can->CANMBOX[mboxNum].CANMSG.BYTES.MB_5);
+		break;
+		case 6:
+			tempByte = (uint16_t)(can->CANMBOX[mboxNum].CANMSG.BYTES.MB_6);
+		break;
+		case 7:
+			tempByte = (uint16_t)(can->CANMBOX[mboxNum].CANMSG.BYTES.MB_7);
+		break;
+		default:
+			tempByte = 0;
+	}
+	return tempByte & 0x00FF;
+}
+
+
+
+//! \brief Reset the MSGCTL Register to get defined values
+//! \param[in] canHandle			The enhanced CAN module (eCAN) object handle
+//! \param[in] mboxNum				Number of the Mailbox to reset
+void CAN_resetMSGCTRL(CAN_Handle canHandle, CAN_MboxNum_e mboxNum)
+{
+	CAN_Obj *can = (CAN_Obj *)canHandle;
+	//can->CANMBOX[mboxNum].MSGCTRL &= (~CAN_MSGCTRL_DLC);
+	//can->CANMBOX[mboxNum].MSGCTRL &= (~CAN_MSGCTRL_RTR);
+	//can->CANMBOX[mboxNum].MSGCTRL &= (~CAN_MSGCTRL_TLP);
+	can->CANMBOX[mboxNum].MSGCTRL = 0x00000000;
+	return;
+}
+
+
+//! \brief Reset the whole ID Register a Mailbox
+//! \param[in]	canHandle			The enhanced CAN module (eCAN) object handle
+//! \param[in]	mboxNum				Number of the Mailbox that shall be changed
+void CAN_resetMsgID(CAN_Handle canHandle, CAN_MboxNum_e mboxNum)
+{
+	CAN_Obj *can = (CAN_Obj *)canHandle;
+	can->CANMBOX[mboxNum].MSGID = 0x00000000;
+	return;
+}
+
+
+//! \brief Reset the Stuff Error Bit
+//! \param[in] canHandle			The enhanced CAN module (eCAN) object handle
+//! \param[in] Flag					The Flag to be reseted. Any of the CANES_Bits define
+void CAN_resetErrorFlag(CAN_Handle canHandle, uint32_t Flag)
+{
+	CAN_Obj *can = (CAN_Obj *)canHandle;
+	CanaShadow.CANES &= 0x00000000;
+	CanaShadow.CANES |= Flag;
+	can->CANCTRL.CANES = CanaShadow.CANES;
+	return;
+}
+
+
+//! \brief Set the Bit Time (TimeSeg1 and TimeSeg2) in CANBTC
+//! \param[in] canHandle			The enhanced CAN module (eCAN) object handle
+//! \param[in] MailboxBit			Bit of the Mailbox. Any combination of the CAN_MBOX-defines.
+void CAN_send(CAN_Handle canHandle, const uint32_t MailboxBit)
+{
+	CAN_Obj *can = (CAN_Obj *)canHandle;
+	CanaShadow.CANTRS = can->CANCTRL.CANTRS;
+	CanaShadow.CANTRS |= MailboxBit;
+	can->CANCTRL.CANTRS = CanaShadow.CANTRS;
+	return;
+}
+
+
+//! \brief Set the Bit Time (TimeSeg1 and TimeSeg2) in CANBTC
+//! \param[in] canHandle			The enhanced CAN module (eCAN) object handle
+//! \param[in] SamplingPoint		desired Sampling Point
+//! \param[in] BitTime				desired Bit Time
+void CAN_setBitTime(CAN_Handle canHandle)//, const CAN_BitTime_e BitTime)
+{
+	CAN_Obj *can = (CAN_Obj *)canHandle;
+	volatile uint32_t tempCANES;
+	EALLOW;
+	//Change Configuration Request
+	CanaShadow.CANMC = can->CANCTRL.CANMC;
+	CanaShadow.CANMC |= CANMC_Bits_CCR;
+	can->CANCTRL.CANMC = CanaShadow.CANMC;
+	
+	//Wait until the CPU has been granted permission to change the configuration registers
+	do
+	{
+		tempCANES = can->CANCTRL.CANES;
+		tempCANES &= CANES_Bits_CCE;
+	}while(tempCANES == 0);
+	
+	//read current values
+	CanaShadow.CANBTC = can->CANCTRL.CANBTC;
+	//reset TSEG2
+	CanaShadow.CANBTC &= (~CANBTC_Bits_TSEG2);
+	//store the new value to TSEG2
+	CanaShadow.CANBTC |= (TSEG2reg * CANBTC_Position_TSEG2);
+	//reset TSEG1
+	CanaShadow.CANBTC &= (~CANBTC_Bits_TSEG1);
+	//store the new value to TSEG1
+	CanaShadow.CANBTC |= (TSEG1reg * CANBTC_Position_TSEG1);
+	//copy changes to the CAN_Obj
+	can->CANCTRL.CANBTC = CanaShadow.CANBTC;
+	
+	//reset CCR
+	CanaShadow.CANMC = can->CANCTRL.CANMC;
+	CanaShadow.CANMC &= (~CANMC_Bits_CCR);
+	can->CANCTRL.CANMC = CanaShadow.CANMC;
+	
+	// Wait until the CPU no longer has permission to change the configuration registers
+	do
+	{
+		tempCANES = can->CANCTRL.CANES;
+		tempCANES &= CANES_Bits_CCE;
+	}while(tempCANES);
+	EDIS;
+	return;
+}
+
+
+//! \brief Set the Baud Rate in CANBTC
+//! \param[in] canHandle			The enhanced CAN module (eCAN) object handle
+//! \param[in] BaudRate				desired Baud Rate
+void CAN_setBaudRate(CAN_Handle canHandle, const CAN_BaudRate_e BaudRate)
+{
+	CAN_Obj *can = (CAN_Obj *)canHandle;
+	volatile uint32_t tempCANES = 0;
+	EALLOW;
+
+	//Change Configuration Request
+	CanaShadow.CANMC = can->CANCTRL.CANMC;
+	CanaShadow.CANMC |= CANMC_Bits_CCR;
+	can->CANCTRL.CANMC = CanaShadow.CANMC;
+	
+	//Wait until the CPU has been granted permission to change the configuration registers
+	do
+	{
+		tempCANES = can->CANCTRL.CANES;
+		tempCANES &= CANES_Bits_CCE;
+
+	}while(tempCANES == 0);
+	
+	//read current value
+	CanaShadow.CANBTC = can->CANCTRL.CANBTC;
+
+	//TODO: calculate the Baud Prescale Register out of the Bit Time and desired Baud Rate
+
+	//store changes to the CanaShadow
+	CanaShadow.CANBTC |= (BPRreg * SHIFT_BY_16);
+
+	//copy changes to the CAN_Obj
+	can->CANCTRL.CANBTC = CanaShadow.CANBTC;
+	
+	//reset CCR
+	CanaShadow.CANMC &= (~CANMC_Bits_CCR);
+	can->CANCTRL.CANMC = CanaShadow.CANMC;
+	
+	// Wait until the CPU no longer has permission to change the configuration registers
+	do
+	{
+		tempCANES = can->CANCTRL.CANES;
+		tempCANES &= CANES_Bits_CCE;
+	}while(tempCANES);
+	EDIS;
+	return;
+}
+
+/*
+ *
+#if(modolu)
+	{
+	#error Baudrate if set wrong recalculate your baudrate
+	}
+ *
+ */
+//! \brief Set the DLC value of a Mailbox
+//! \param[in]	canHandle			The enhanced CAN module (eCAN) object handle
+//! \param[in]	mboxNumber				Number of the Mailbox that shall be changed
+//! \param[in]	DLCval				desired DLC value
+extern void CAN_setDLC(CAN_Handle canHandle, CAN_MboxNum_e mboxNumber, const MSGCTRL_DLC_e DLCval)
+{
+	CAN_Obj *can = (CAN_Obj *)canHandle;
+	can->CANMBOX[mboxNumber].MSGCTRL &= (~MSGCTRL_DLC);
+	can->CANMBOX[mboxNumber].MSGCTRL |= DLCval;
+	
+	return;
+}
+
+
+//! \brief Set the direction of a Mailbox either transmit or receive
+//! \param[in] canHandle			The enhanced CAN module (eCAN) object handle
+//! \param[in] MailboxBit		Number of the Mailbox. Any combination of the CAN_MBOX-defines.
+//! \param[in] MailboxDirection		Desired Direction
+void CAN_setMailboxDirection(CAN_Handle canHandle, const uint32_t MailboxBit, const CANMD_Direction_e MailboxDirection)
+{
+	CAN_Obj *can = (CAN_Obj *)canHandle;
+	CanaShadow.CANMD = can->CANCTRL.CANMD;
+	if(MailboxDirection)
+	{
+		//set to receive
+		CanaShadow.CANMD |= MailboxBit;
+	}
+	else
+	{
+		//reset to transmit
+		CanaShadow.CANMD &= (~MailboxBit);
+	}
+	can->CANCTRL.CANMD = CanaShadow.CANMD;
+	return;
+}
+
+
+
+//! \brief Set the Mode of the CAN module in CANMC to SCC
+//! \param[in] canHandle			The enhanced CAN module (eCAN) object handle
+void CAN_setModeSCC(CAN_Handle canHandle)
+{
+	CAN_Obj *can = (CAN_Obj *)canHandle;
+	EALLOW;
+	CanaShadow.CANMC = can->CANCTRL.CANMC;
+	CanaShadow.CANMC &= (~CANMC_Bits_SCB|CANMC_Bits_STM);
+	can->CANCTRL.CANMC = CanaShadow.CANMC;
+	EDIS;
+	return;
+}
+
+
+//! \brief Set the Mode of the CAN module in CANMC to eCAN
+//! \param[in] canHandle			The enhanced CAN module (eCAN) object handle
+void CAN_setModeeCAN(CAN_Handle canHandle)
+{
+	CAN_Obj *can = (CAN_Obj *)canHandle;
+	EALLOW;
+	CanaShadow.CANMC = can->CANCTRL.CANMC;
+	CanaShadow.CANMC |= CANMC_Bits_SCB;
+	CanaShadow.CANMC &= (~CANMC_Bits_STM);
+	can->CANCTRL.CANMC = CanaShadow.CANMC;
+	EDIS;
+	return;
+}
+
+
+//! \brief Enable the selftest mode (disabled by setting to another mode)
+//! \param[in] canHandle			The enhanced CAN module (eCAN) object handle
+void CAN_setModeSelfTest(CAN_Handle canHandle)
+{
+	CAN_Obj *can = (CAN_Obj *)canHandle;
+	EALLOW;
+	CanaShadow.CANMC = can->CANCTRL.CANMC;
+	CanaShadow.CANMC |= CANMC_Bits_STM;
+	can->CANCTRL.CANMC = CanaShadow.CANMC;
+	EDIS;
+	return;
+}
+
+
+//! \brief Set the ID of a Mailbox
+//! \param[in]	canHandle			The enhanced CAN module (eCAN) object handle
+//! \param[in]	mboxNum				Number of the Mailbox that shall be changed
+//! \param[in]	ID					desired Message ID
+void CAN_setMsgID(CAN_Handle canHandle, CAN_MboxNum_e mboxNum, uint32_t ID)
+{
+	//TODO: test dependance of CANGAM.AMI bit if this needs to be considered
+	//in this function
+	CAN_Obj *can = (CAN_Obj *)canHandle;
+	volatile uint32_t tempMSGID = 0;
+	tempMSGID = can->CANMBOX[mboxNum].MSGID;
+	/*if((tempMSGID & MSGID_Bits_IDE) != 0)
+	{
+		tempMSGID &= (~MSGID_Bits_extID);
+		tempMSGID |= ID;
+		can->CANMBOX[mboxNum].MSGID = tempMSGID;
+	}
+	else*/
+	{
+		tempMSGID &=  (~MSGID_Bits_extID);
+		tempMSGID |= (ID * MSGID_Position_stdID);
+		can->CANMBOX[mboxNum].MSGID = tempMSGID;
+	}
+
+	return;
+}
+
+
+//! \brief Write Data to a specified Mailbox
+//! \param[in] canHandle			The enhanced CAN module (eCAN) object handle
+//! \param[in] mboxNum				Number of the Mailbox
+//! \param[in] Data					Data to be written to the Mailbox
+void CAN_write(CAN_Handle canHandle, CAN_MboxNum_e mboxNum, uint32_t MDH, uint32_t MDL)
+{
+	CAN_Obj *can = (CAN_Obj *)canHandle;
+	can->CANMBOX[mboxNum].CANMSG.FOUR_WORDS.MDH = MDH;
+	can->CANMBOX[mboxNum].CANMSG.FOUR_WORDS.MDL = MDL;
+
+	return;
+}

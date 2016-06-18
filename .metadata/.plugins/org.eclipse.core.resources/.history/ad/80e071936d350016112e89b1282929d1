@@ -45,13 +45,6 @@ ctrl.obj: C:/work/git/umclib/modules/ctrl/src/32b/ctrl.c $(GEN_OPTS) $(GEN_HDRS)
 	@echo 'Finished building: $<'
 	@echo ' '
 
-ecan_new.obj: C:/work/git/umclib/drivers/can/src/32b/f28x/f2806x/ecan_new.c $(GEN_OPTS) $(GEN_HDRS)
-	@echo 'Building file: $<'
-	@echo 'Invoking: C2000 Compiler'
-	"C:/ti/ccsv6/tools/compiler/ti-cgt-c2000_6.4.10/bin/cl2000" -v28 -ml -mt --float_support=fpu32 -O2 --include_path="C:/ti/ccsv6/tools/compiler/ti-cgt-c2000_6.4.10/include" --include_path="C:/work/git/umcapps/tests/umc_periph_test/" --include_path="C:/work/git/umclib/modules/hal/boards/umc3/src/" --include_path="C:/work/git/umclib/" --advice:performance=all -g --define=FAST_ROM_V1p6 --diag_warning=225 --display_error_number --diag_wrap=off --preproc_with_compile --preproc_dependency="ecan_new.pp" $(GEN_OPTS__FLAG) "$<"
-	@echo 'Finished building: $<'
-	@echo ' '
-
 filter_fo.obj: C:/work/git/umclib/modules/filter/src/32b/filter_fo.c $(GEN_OPTS) $(GEN_HDRS)
 	@echo 'Building file: $<'
 	@echo 'Invoking: C2000 Compiler'
