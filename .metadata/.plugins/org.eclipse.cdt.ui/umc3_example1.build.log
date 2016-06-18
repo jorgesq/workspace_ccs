@@ -3,8 +3,8 @@
 
 "C:\\ti\\ccsv6\\utils\\bin\\gmake" -k clean 
 DEL /F  "umc3_example1.out"  "umc3_example1.hex" 
-DEL /F "adc.pp" "clarke.pp" "clk.pp" "cpu.pp" "ctrl.pp" "ecan_new.pp" "filter_fo.pp" "flash.pp" "gpio.pp" "hal.pp" "ipark.pp" "main.pp" "memCopy.pp" "offset.pp" "osc.pp" "park.pp" "pid.pp" "pie.pp" "pll.pp" "pwm.pp" "pwr.pp" "qep.pp" "svgen.pp" "timer.pp" "traj.pp" "user.pp" "wdog.pp" 
-DEL /F "CodeStartBranch.obj" "adc.obj" "clarke.obj" "clk.obj" "cpu.obj" "ctrl.obj" "ecan_new.obj" "filter_fo.obj" "flash.obj" "gpio.obj" "hal.obj" "ipark.obj" "main.obj" "memCopy.obj" "offset.obj" "osc.obj" "park.obj" "pid.obj" "pie.obj" "pll.obj" "pwm.obj" "pwr.obj" "qep.obj" "svgen.obj" "timer.obj" "traj.obj" "usDelay.obj" "user.obj" "wdog.obj" 
+DEL /F "adc.pp" "clarke.pp" "clk.pp" "cpu.pp" "ctrl.pp" "ecan_new.pp" "filter_fo.pp" "flash.pp" "gpio.pp" "hal.pp" "ipark.pp" "main.pp" "memCopy.pp" "offset.pp" "osc.pp" "park.pp" "pid.pp" "pie.pp" "pll.pp" "pwm.pp" "pwr.pp" "qep.pp" "sci.pp" "svgen.pp" "timer.pp" "traj.pp" "user.pp" "wdog.pp" 
+DEL /F "CodeStartBranch.obj" "adc.obj" "clarke.obj" "clk.obj" "cpu.obj" "ctrl.obj" "ecan_new.obj" "filter_fo.obj" "flash.obj" "gpio.obj" "hal.obj" "ipark.obj" "main.obj" "memCopy.obj" "offset.obj" "osc.obj" "park.obj" "pid.obj" "pie.obj" "pll.obj" "pwm.obj" "pwr.obj" "qep.obj" "sci.obj" "svgen.obj" "timer.obj" "traj.obj" "usDelay.obj" "user.obj" "wdog.obj" 
 DEL /F "CodeStartBranch.pp" "usDelay.pp" 
 Could Not Find C:\work\git\workspace_ccs\umc3_example1\Debug\CodeStartBranch.pp
 'Finished clean'
