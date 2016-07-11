@@ -167,7 +167,7 @@ all: umc3_example1.out
 umc3_example1.out: $(OBJS) $(CMD_SRCS) $(LIB_SRCS) $(GEN_CMDS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: C2000 Linker'
-	"C:/ti/ccsv6/tools/compiler/ti-cgt-c2000_6.4.10/bin/cl2000" -v28 -ml -mt --float_support=fpu32 -O2 --advice:performance=all -g --define=FAST_ROM_V1p6 --diag_warning=225 --display_error_number --diag_wrap=off -z -m"umc3_example1.map" --stack_size=0x3B0 --warn_sections -i"C:/ti/ccsv6/tools/compiler/ti-cgt-c2000_6.4.10/lib" -i"C:/ti/ccsv6/tools/compiler/ti-cgt-c2000_6.4.10/include" --reread_libs --display_error_number --diag_wrap=off --diag_suppress=16002 --xml_link_info="umc3_example1_linkInfo.xml" --rom_model -o "umc3_example1.out" $(ORDERED_OBJS)
+	"C:/ti/ccsv6/tools/compiler/ti-cgt-c2000_6.4.10/bin/cl2000" -v28 -ml -mt --float_support=fpu32 -O2 --advice:performance=all -g --define=FAST_ROM_V1p6 --diag_warning=225 --display_error_number --diag_wrap=off -z -m"umc3_example1.map" --stack_size=0x3B0 --warn_sections -i"C:/ti/ccsv6/tools/compiler/ti-cgt-c2000_6.4.10/lib" -i"C:/ti/ccsv6/tools/compiler/ti-cgt-c2000_6.4.10/include" --reread_libs --display_error_number --diag_suppress=16002 --diag_wrap=off --xml_link_info="umc3_example1_linkInfo.xml" --rom_model -o "umc3_example1.out" $(ORDERED_OBJS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
