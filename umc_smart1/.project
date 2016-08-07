@@ -131,6 +131,11 @@
 			<locationURI>UMCAPPS/tests/umc_periph_test/main.js</locationURI>
 		</link>
 		<link>
+			<name>main_smart_ideas1.c</name>
+			<type>1</type>
+			<locationURI>PARENT-2-PROJECT_LOC/umcapps/tests/umc_smart1/main_smart_ideas1.c</locationURI>
+		</link>
+		<link>
 			<name>memCopy.c</name>
 			<type>1</type>
 			<locationURI>UMCLIB/modules/memCopy/src/memCopy.c</locationURI>

@@ -1,7 +1,7 @@
 ******************************************************************************
              TMS320C2000 Linker PC v6.4.10                     
 ******************************************************************************
->> Linked Sun Jul 10 18:56:05 2016
+>> Linked Sat Jul 30 23:18:24 2016
 
 OUTPUT FILE NAME:   <umc_smart1.out>
 ENTRY POINT SYMBOL: "_c_int00"  address: 0000b135
@@ -38,7 +38,7 @@ codestart
                   00000000    00000002     CodeStartBranch.obj (codestart)
 
 .cinit     0    00000050    000000b9     
-                  00000050    0000008a     proj_lab04a.obj (.cinit)
+                  00000050    0000008a     main_smart_ideas1.obj (.cinit)
                   000000da    00000015     ctrl.obj (.cinit)
                   000000ef    0000000a     rts2800_fpu32.lib : exit.obj (.cinit)
                   000000f9    00000005                       : _lock.obj (.cinit:__lock)
@@ -54,14 +54,14 @@ ramfuncs   0    00000109    00000036
                   00008000    00000d06     hal.obj (.text)
                   00008d06    000009fe     ctrl.obj (.text)
                   00009704    0000056d     user.obj (.text)
-                  00009c71    0000030f     proj_lab04a.obj (.text)
+                  00009c71    0000030f     main_smart_ideas1.obj (.text)
                   00009f80    000002f7     pwm.obj (.text)
                   0000a277    00000210     ecan_new.obj (.text)
                   0000a487    000001fa     adc.obj (.text)
                   0000a681    0000019d     gpio.obj (.text)
                   0000a81e    0000018b     clk.obj (.text)
                   0000a9a9    00000001     --HOLE-- [fill = 0]
-                  0000a9aa    00000178     proj_lab04a.obj (.text:retain)
+                  0000a9aa    00000178     main_smart_ideas1.obj (.text:retain)
                   0000ab22    00000109     pie.obj (.text)
                   0000ac2b    000000f5     sci.obj (.text)
                   0000ad20    000000aa     spi.obj (.text)
@@ -109,7 +109,7 @@ ramfuncs   0    00000109    00000036
                   0000b3f0    00000001     cpu.obj (.ebss)
                   0000b3f1    00000001     rts2800_fpu32.lib : errno.obj (.ebss)
                   0000b3f2    0000000e     --HOLE--
-                  0000b400    0000016c     proj_lab04a.obj (.ebss)
+                  0000b400    0000016c     main_smart_ideas1.obj (.ebss)
                   0000b56c    00000014     --HOLE--
                   0000b580    000000a8     hal.obj (.ebss)
                   0000b628    00000018     --HOLE--
@@ -126,7 +126,7 @@ IQmath     0    0000b680    000000be
                   0000b73e    0000001c     ctrl.obj (.econst)
                   0000b75a    00000008     user.obj (.econst)
                   0000b762    00000004     hal.obj (.econst)
-                  0000b766    00000004     proj_lab04a.obj (.econst)
+                  0000b766    00000004     main_smart_ideas1.obj (.econst)
 
 IQmathTables 
 *          0    003fdc30    00000b50     NOLOAD SECTION

@@ -28,6 +28,7 @@ C:/work/git/umclib/drivers/gpio/src/32b/f28x/f2806x/gpio.c \
 C:/work/git/umclib/modules/hal/boards/umc3/src/hal.c \
 C:/work/git/umclib/drivers/i2c/src/32b/f28x/f2806x/i2c.c \
 C:/work/git/umclib/modules/ipark/src/32b/ipark.c \
+C:/work/git/umcapps/tests/umc_smart1/main_smart_ideas1.c \
 C:/work/git/umclib/modules/memCopy/src/memCopy.c \
 C:/work/git/umclib/modules/offset/src/32b/offset.c \
 C:/work/git/umclib/drivers/osc/src/32b/f28x/f2806x/osc.c \
@@ -35,7 +36,6 @@ C:/work/git/umclib/modules/park/src/32b/park.c \
 C:/work/git/umclib/modules/pid/src/32b/pid.c \
 C:/work/git/umclib/drivers/pie/src/32b/f28x/f2806x/pie.c \
 C:/work/git/umclib/drivers/pll/src/32b/f28x/f2806x/pll.c \
-C:/work/git/umcapps/tests/umc_smart1/proj_lab04a.c \
 C:/work/git/umclib/drivers/pwm/src/32b/f28x/f2806x/pwm.c \
 C:/work/git/umclib/drivers/pwr/src/32b/f28x/f2806x/pwr.c \
 C:/work/git/umclib/drivers/qep/src/32b/f28x/f2806x/qep.c \
@@ -62,6 +62,7 @@ OBJS += \
 ./hal.obj \
 ./i2c.obj \
 ./ipark.obj \
+./main_smart_ideas1.obj \
 ./memCopy.obj \
 ./offset.obj \
 ./osc.obj \
@@ -69,7 +70,6 @@ OBJS += \
 ./pid.obj \
 ./pie.obj \
 ./pll.obj \
-./proj_lab04a.obj \
 ./pwm.obj \
 ./pwr.obj \
 ./qep.obj \
@@ -100,6 +100,7 @@ C_DEPS += \
 ./hal.pp \
 ./i2c.pp \
 ./ipark.pp \
+./main_smart_ideas1.pp \
 ./memCopy.pp \
 ./offset.pp \
 ./osc.pp \
@@ -107,7 +108,6 @@ C_DEPS += \
 ./pid.pp \
 ./pie.pp \
 ./pll.pp \
-./proj_lab04a.pp \
 ./pwm.pp \
 ./pwr.pp \
 ./qep.pp \
@@ -133,6 +133,7 @@ C_DEPS__QUOTED += \
 "hal.pp" \
 "i2c.pp" \
 "ipark.pp" \
+"main_smart_ideas1.pp" \
 "memCopy.pp" \
 "offset.pp" \
 "osc.pp" \
@@ -140,7 +141,6 @@ C_DEPS__QUOTED += \
 "pid.pp" \
 "pie.pp" \
 "pll.pp" \
-"proj_lab04a.pp" \
 "pwm.pp" \
 "pwr.pp" \
 "qep.pp" \
@@ -167,6 +167,7 @@ OBJS__QUOTED += \
 "hal.obj" \
 "i2c.obj" \
 "ipark.obj" \
+"main_smart_ideas1.obj" \
 "memCopy.obj" \
 "offset.obj" \
 "osc.obj" \
@@ -174,7 +175,6 @@ OBJS__QUOTED += \
 "pid.obj" \
 "pie.obj" \
 "pll.obj" \
-"proj_lab04a.obj" \
 "pwm.obj" \
 "pwr.obj" \
 "qep.obj" \
@@ -209,6 +209,7 @@ C_SRCS__QUOTED += \
 "C:/work/git/umclib/modules/hal/boards/umc3/src/hal.c" \
 "C:/work/git/umclib/drivers/i2c/src/32b/f28x/f2806x/i2c.c" \
 "C:/work/git/umclib/modules/ipark/src/32b/ipark.c" \
+"C:/work/git/umcapps/tests/umc_smart1/main_smart_ideas1.c" \
 "C:/work/git/umclib/modules/memCopy/src/memCopy.c" \
 "C:/work/git/umclib/modules/offset/src/32b/offset.c" \
 "C:/work/git/umclib/drivers/osc/src/32b/f28x/f2806x/osc.c" \
@@ -216,7 +217,6 @@ C_SRCS__QUOTED += \
 "C:/work/git/umclib/modules/pid/src/32b/pid.c" \
 "C:/work/git/umclib/drivers/pie/src/32b/f28x/f2806x/pie.c" \
 "C:/work/git/umclib/drivers/pll/src/32b/f28x/f2806x/pll.c" \
-"C:/work/git/umcapps/tests/umc_smart1/proj_lab04a.c" \
 "C:/work/git/umclib/drivers/pwm/src/32b/f28x/f2806x/pwm.c" \
 "C:/work/git/umclib/drivers/pwr/src/32b/f28x/f2806x/pwr.c" \
 "C:/work/git/umclib/drivers/qep/src/32b/f28x/f2806x/qep.c" \
