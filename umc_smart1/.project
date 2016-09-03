@@ -111,6 +111,11 @@
 			<locationURI>UMCLIB/modules/hal/boards/umc3/src/hal.c</locationURI>
 		</link>
 		<link>
+			<name>hdlc.c</name>
+			<type>1</type>
+			<locationURI>UMCLIB/modules/hdlc/src/32b/hdlc.c</locationURI>
+		</link>
+		<link>
 			<name>i2c.c</name>
 			<type>1</type>
 			<locationURI>UMCLIB/drivers/i2c/src/32b/f28x/f2806x/i2c.c</locationURI>
@@ -133,7 +138,7 @@
 		<link>
 			<name>main_smart_ideas1.c</name>
 			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/umcapps/tests/umc_smart1/main_smart_ideas1.c</locationURI>
+			<locationURI>UMCPROJECT/main_smart_ideas1.c</locationURI>
 		</link>
 		<link>
 			<name>memCopy.c</name>
@@ -184,6 +189,11 @@
 			<name>proj_lab04a.c</name>
 			<type>1</type>
 			<locationURI>UMCPROJECT/proj_lab04a.c</locationURI>
+		</link>
+		<link>
+			<name>protocol.c</name>
+			<type>1</type>
+			<locationURI>UMCLIB/modules/protocol/src/32b/protocol.c</locationURI>
 		</link>
 		<link>
 			<name>pwm.c</name>

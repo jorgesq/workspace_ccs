@@ -23,6 +23,9 @@ main_smart_ideas1.obj: C:/work/git/umclib/modules/fem/src/32b/fem.h
 main_smart_ideas1.obj: C:/ti/ccsv6/tools/compiler/ti-cgt-c2000_6.4.10/include/math.h
 main_smart_ideas1.obj: C:/work/git/umclib/modules/cpu_usage/src/32b/cpu_usage.h
 main_smart_ideas1.obj: C:/ti/ccsv6/tools/compiler/ti-cgt-c2000_6.4.10/include/math.h
+main_smart_ideas1.obj: C:/work/git/umclib/modules/hdlc/src/32b/hdlc.h
+main_smart_ideas1.obj: C:/work/git/umclib/modules/protocol/src/32b/protocol.h
+main_smart_ideas1.obj: C:/work/git/umclib/modules/protocol/src/32b/protocol_commands.h
 main_smart_ideas1.obj: C:/work/git/umclib/modules/ctrl/src/32b/ctrl.h
 main_smart_ideas1.obj: C:/work/git/umclib/modules/clarke/src/32b/clarke.h
 main_smart_ideas1.obj: C:/work/git/umclib/modules/park/src/32b/park.h
@@ -84,6 +87,9 @@ C:/work/git/umclib/modules/fem/src/32b/fem.h:
 C:/ti/ccsv6/tools/compiler/ti-cgt-c2000_6.4.10/include/math.h: 
 C:/work/git/umclib/modules/cpu_usage/src/32b/cpu_usage.h: 
 C:/ti/ccsv6/tools/compiler/ti-cgt-c2000_6.4.10/include/math.h: 
+C:/work/git/umclib/modules/hdlc/src/32b/hdlc.h: 
+C:/work/git/umclib/modules/protocol/src/32b/protocol.h: 
+C:/work/git/umclib/modules/protocol/src/32b/protocol_commands.h: 
 C:/work/git/umclib/modules/ctrl/src/32b/ctrl.h: 
 C:/work/git/umclib/modules/clarke/src/32b/clarke.h: 
 C:/work/git/umclib/modules/park/src/32b/park.h: 

@@ -157,6 +157,13 @@ pll.obj: C:/work/git/umclib/drivers/pll/src/32b/f28x/f2806x/pll.c $(GEN_OPTS) $(
 	@echo 'Finished building: $<'
 	@echo ' '
 
+protocol.obj: C:/work/git/umclib/modules/protocol/src/32b/protocol.c $(GEN_OPTS) $(GEN_HDRS)
+	@echo 'Building file: $<'
+	@echo 'Invoking: C2000 Compiler'
+	"C:/ti/ccsv6/tools/compiler/ti-cgt-c2000_6.4.10/bin/cl2000" -v28 -ml -mt --float_support=fpu32 -O2 --include_path="C:/ti/ccsv6/tools/compiler/ti-cgt-c2000_6.4.10/include" --include_path="C:/work/git/umcapps/tests/umc_quadrature/" --include_path="C:/work/git/umclib/modules/hal/boards/umc3/src/" --include_path="C:/work/git/umclib/" --advice:performance=all -g --define=FAST_ROM_V1p6 --diag_warning=225 --display_error_number --diag_wrap=off --preproc_with_compile --preproc_dependency="protocol.pp" $(GEN_OPTS__FLAG) "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
 pwm.obj: C:/work/git/umclib/drivers/pwm/src/32b/f28x/f2806x/pwm.c $(GEN_OPTS) $(GEN_HDRS)
 	@echo 'Building file: $<'
 	@echo 'Invoking: C2000 Compiler'

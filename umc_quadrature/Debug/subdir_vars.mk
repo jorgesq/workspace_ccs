@@ -36,6 +36,7 @@ C:/work/git/umclib/modules/park/src/32b/park.c \
 C:/work/git/umclib/modules/pid/src/32b/pid.c \
 C:/work/git/umclib/drivers/pie/src/32b/f28x/f2806x/pie.c \
 C:/work/git/umclib/drivers/pll/src/32b/f28x/f2806x/pll.c \
+C:/work/git/umclib/modules/protocol/src/32b/protocol.c \
 C:/work/git/umclib/drivers/pwm/src/32b/f28x/f2806x/pwm.c \
 C:/work/git/umclib/drivers/pwr/src/32b/f28x/f2806x/pwr.c \
 C:/work/git/umclib/drivers/qep/src/32b/f28x/f2806x/qep.c \
@@ -70,6 +71,7 @@ OBJS += \
 ./pid.obj \
 ./pie.obj \
 ./pll.obj \
+./protocol.obj \
 ./pwm.obj \
 ./pwr.obj \
 ./qep.obj \
@@ -108,6 +110,7 @@ C_DEPS += \
 ./pid.pp \
 ./pie.pp \
 ./pll.pp \
+./protocol.pp \
 ./pwm.pp \
 ./pwr.pp \
 ./qep.pp \
@@ -141,6 +144,7 @@ C_DEPS__QUOTED += \
 "pid.pp" \
 "pie.pp" \
 "pll.pp" \
+"protocol.pp" \
 "pwm.pp" \
 "pwr.pp" \
 "qep.pp" \
@@ -175,6 +179,7 @@ OBJS__QUOTED += \
 "pid.obj" \
 "pie.obj" \
 "pll.obj" \
+"protocol.obj" \
 "pwm.obj" \
 "pwr.obj" \
 "qep.obj" \
@@ -217,6 +222,7 @@ C_SRCS__QUOTED += \
 "C:/work/git/umclib/modules/pid/src/32b/pid.c" \
 "C:/work/git/umclib/drivers/pie/src/32b/f28x/f2806x/pie.c" \
 "C:/work/git/umclib/drivers/pll/src/32b/f28x/f2806x/pll.c" \
+"C:/work/git/umclib/modules/protocol/src/32b/protocol.c" \
 "C:/work/git/umclib/drivers/pwm/src/32b/f28x/f2806x/pwm.c" \
 "C:/work/git/umclib/drivers/pwr/src/32b/f28x/f2806x/pwr.c" \
 "C:/work/git/umclib/drivers/qep/src/32b/f28x/f2806x/qep.c" \

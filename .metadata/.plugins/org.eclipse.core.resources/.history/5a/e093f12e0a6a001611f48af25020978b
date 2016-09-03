@@ -1,0 +1,54 @@
+// **************************************************************************
+// the includes
+
+#include "modules/protocol/src/32b/protocol_commands.h"
+#include "modules/protocol/src/32b/protocol.h"
+
+
+// **************************************************************************
+// the defines
+
+// **************************************************************************
+// the globals
+
+// **************************************************************************
+// the functions
+extern void PROTO_commandError(void);
+void PROTO_commandToggleLED(void);
+void PROTO_commandDefault(void)
+void PROTO_readSignature(framebuffer, framelength);
+
+
+void PROTO_router(const uint16_t *framebuffer, uint16_t framelength) {
+	enum serial_commands command = (enum serial_commands)framebuffer[0];
+	switch (command) {
+	case COMMAND_ERROR:
+		PROTO_commandError();
+		break;
+		//case COMMAND_SET_SERVO_POSITION:     command_set_servo_position(framebuffer, framelength); break;
+		case COMMAND_TOGGLE_LED:             PROTO_commandToggleLED(); break;
+		case COMMAND_READ_SIGNATURE:         PROTO_readSignature(framebuffer, framelength); break;
+		case COMMAND_ECHO_DATA:              PROTO_commandEcho(framebuffer, framelength); break;
+	default:
+		PROTO_commandDefault();
+		break;
+	}
+}
+/*
+void PROTO_commandError(void) {
+	uint16_t data[2] = { (uint16_t) RESPONSE_ERROR, 1 };
+	//data[0] = RESPONSE_ERROR;
+	//hdlc.frameDecode(data, 2);
+}
+
+void PROTO_commandToggleLED(void) {
+	while(1);
+}
+
+void PROTO_commandDefault(void) {
+	;
+}
+*/
+
+// end of file
+
