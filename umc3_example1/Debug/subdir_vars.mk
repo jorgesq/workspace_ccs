@@ -37,6 +37,7 @@ C:/work/git/umclib/drivers/pll/src/32b/f28x/f2806x/pll.c \
 C:/work/git/umclib/drivers/pwm/src/32b/f28x/f2806x/pwm.c \
 C:/work/git/umclib/drivers/pwr/src/32b/f28x/f2806x/pwr.c \
 C:/work/git/umclib/drivers/qep/src/32b/f28x/f2806x/qep.c \
+C:/work/git/umclib/drivers/sci/src/32b/f28x/f2806x/sci.c \
 C:/work/git/umclib/modules/svgen/src/32b/svgen.c \
 C:/work/git/umclib/drivers/timer/src/32b/f28x/f2806x/timer.c \
 C:/work/git/umclib/modules/traj/src/32b/traj.c \
@@ -67,6 +68,7 @@ OBJS += \
 ./pwm.obj \
 ./pwr.obj \
 ./qep.obj \
+./sci.obj \
 ./svgen.obj \
 ./timer.obj \
 ./traj.obj \
@@ -101,6 +103,7 @@ C_DEPS += \
 ./pwm.pp \
 ./pwr.pp \
 ./qep.pp \
+./sci.pp \
 ./svgen.pp \
 ./timer.pp \
 ./traj.pp \
@@ -130,6 +133,7 @@ C_DEPS__QUOTED += \
 "pwm.pp" \
 "pwr.pp" \
 "qep.pp" \
+"sci.pp" \
 "svgen.pp" \
 "timer.pp" \
 "traj.pp" \
@@ -160,6 +164,7 @@ OBJS__QUOTED += \
 "pwm.obj" \
 "pwr.obj" \
 "qep.obj" \
+"sci.obj" \
 "svgen.obj" \
 "timer.obj" \
 "traj.obj" \
@@ -198,6 +203,7 @@ C_SRCS__QUOTED += \
 "C:/work/git/umclib/drivers/pwm/src/32b/f28x/f2806x/pwm.c" \
 "C:/work/git/umclib/drivers/pwr/src/32b/f28x/f2806x/pwr.c" \
 "C:/work/git/umclib/drivers/qep/src/32b/f28x/f2806x/qep.c" \
+"C:/work/git/umclib/drivers/sci/src/32b/f28x/f2806x/sci.c" \
 "C:/work/git/umclib/modules/svgen/src/32b/svgen.c" \
 "C:/work/git/umclib/drivers/timer/src/32b/f28x/f2806x/timer.c" \
 "C:/work/git/umclib/modules/traj/src/32b/traj.c" \

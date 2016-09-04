@@ -36,6 +36,7 @@ ORDERED_OBJS += \
 "./pwm.obj" \
 "./pwr.obj" \
 "./qep.obj" \
+"./sci.obj" \
 "./svgen.obj" \
 "./timer.obj" \
 "./traj.obj" \
@@ -179,8 +180,8 @@ umc3_example1.hex: $(EXE_OUTPUTS)
 # Other Targets
 clean:
 	-$(RM) $(EXE_OUTPUTS__QUOTED)$(BIN_OUTPUTS__QUOTED)
-	-$(RM) "adc.pp" "clarke.pp" "clk.pp" "cpu.pp" "ctrl.pp" "ecan_new.pp" "filter_fo.pp" "flash.pp" "gpio.pp" "hal.pp" "ipark.pp" "main.pp" "memCopy.pp" "offset.pp" "osc.pp" "park.pp" "pid.pp" "pie.pp" "pll.pp" "pwm.pp" "pwr.pp" "qep.pp" "svgen.pp" "timer.pp" "traj.pp" "user.pp" "wdog.pp" 
-	-$(RM) "CodeStartBranch.obj" "adc.obj" "clarke.obj" "clk.obj" "cpu.obj" "ctrl.obj" "ecan_new.obj" "filter_fo.obj" "flash.obj" "gpio.obj" "hal.obj" "ipark.obj" "main.obj" "memCopy.obj" "offset.obj" "osc.obj" "park.obj" "pid.obj" "pie.obj" "pll.obj" "pwm.obj" "pwr.obj" "qep.obj" "svgen.obj" "timer.obj" "traj.obj" "usDelay.obj" "user.obj" "wdog.obj" 
+	-$(RM) "adc.pp" "clarke.pp" "clk.pp" "cpu.pp" "ctrl.pp" "ecan_new.pp" "filter_fo.pp" "flash.pp" "gpio.pp" "hal.pp" "ipark.pp" "main.pp" "memCopy.pp" "offset.pp" "osc.pp" "park.pp" "pid.pp" "pie.pp" "pll.pp" "pwm.pp" "pwr.pp" "qep.pp" "sci.pp" "svgen.pp" "timer.pp" "traj.pp" "user.pp" "wdog.pp" 
+	-$(RM) "CodeStartBranch.obj" "adc.obj" "clarke.obj" "clk.obj" "cpu.obj" "ctrl.obj" "ecan_new.obj" "filter_fo.obj" "flash.obj" "gpio.obj" "hal.obj" "ipark.obj" "main.obj" "memCopy.obj" "offset.obj" "osc.obj" "park.obj" "pid.obj" "pie.obj" "pll.obj" "pwm.obj" "pwr.obj" "qep.obj" "sci.obj" "svgen.obj" "timer.obj" "traj.obj" "usDelay.obj" "user.obj" "wdog.obj" 
 	-$(RM) "CodeStartBranch.pp" "usDelay.pp" 
 	-@echo 'Finished clean'
 	-@echo ' '

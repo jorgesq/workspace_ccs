@@ -1,0 +1,115 @@
+// **************************************************************************
+// the includes
+
+#include "modules/protocol/src/32b/protocol_commands.h"
+#include "modules/protocol/src/32b/protocol.h"
+
+
+// **************************************************************************
+// the defines
+
+// **************************************************************************
+// the globals
+
+// **************************************************************************
+// the functions
+
+void PROTO_router(PROTO_Handle protoHandle, const uint16_t *framebuffer, uint16_t framelength) {
+	enum serial_commands command = framebuffer[0];
+	switch (command) {
+	case COMMAND_ERROR:
+		command_error();
+		break;
+		//case COMMAND_SET_SERVO_POSITION:     command_set_servo_position(framebuffer, framelength); break;
+		case COMMAND_TOGGLE_LED:             command_toggle_led(framebuffer, framelength); break;
+		//case COMMAND_READ_SIGNATURE:         command_read_signature(framebuffer, framelength); break;
+		//case COMMAND_ECHO_DATA:              command_echo_data(framebuffer, framelength); break;
+	default:
+		PROTO_commandDefault();
+		break;
+	}
+}
+
+void PROTO_commandError(void) {
+	uint16_t data[2] = { (uint8_t) RESPONSE_ERROR, 1 };
+	//data[0] = RESPONSE_ERROR;
+	//hdlc.frameDecode(data, 2);
+}
+
+void PROTO_commandToggleLED(void) {
+	while(1);
+}
+
+void PROTO_commandDefault(void) {
+	;
+}
+
+void FILTER_FO_getDenCoeffs(FILTER_FO_Handle handle, _iq *pa1) {
+	FILTER_FO_Obj *obj = (FILTER_FO_Obj *) handle;
+
+	*pa1 = obj->a1;
+
+	return;
+} // end of FILTER_FO_getDenCoeffs() function
+
+void FILTER_FO_getInitialConditions(FILTER_FO_Handle handle, _iq *px1, _iq *py1) {
+	FILTER_FO_Obj *obj = (FILTER_FO_Obj *) handle;
+
+	*px1 = obj->x1;
+
+	*py1 = obj->y1;
+
+	return;
+} // end of FILTER_FO_getInitialConditions() function
+
+void FILTER_FO_getNumCoeffs(FILTER_FO_Handle handle, _iq *pb0, _iq *pb1) {
+	FILTER_FO_Obj *obj = (FILTER_FO_Obj *) handle;
+
+	*pb0 = obj->b0;
+	*pb1 = obj->b1;
+
+	return;
+} // end of FILTER_FO_getNumCoeffs() function
+
+FILTER_FO_Handle FILTER_FO_init(void *pMemory, const size_t numBytes) {
+	FILTER_FO_Handle handle;
+
+	if (numBytes < sizeof(FILTER_FO_Obj))
+		return ((FILTER_FO_Handle) NULL);
+
+	// assign the handle
+	handle = (FILTER_FO_Handle) pMemory;
+
+	return (handle);
+} // end of FILTER_FO_init() function
+
+void FILTER_FO_setDenCoeffs(FILTER_FO_Handle handle, const _iq a1) {
+	FILTER_FO_Obj *obj = (FILTER_FO_Obj *) handle;
+
+	obj->a1 = a1;
+
+	return;
+} // end of FILTER_FO_setDenCoeffs() function
+
+void FILTER_FO_setInitialConditions(FILTER_FO_Handle handle, const _iq x1,
+		const _iq y1) {
+	FILTER_FO_Obj *obj = (FILTER_FO_Obj *) handle;
+
+	obj->x1 = x1;
+
+	obj->y1 = y1;
+
+	return;
+} // end of FILTER_FO_setInitialConditions() function
+
+void FILTER_FO_setNumCoeffs(FILTER_FO_Handle handle, const _iq b0, const _iq b1) {
+	FILTER_FO_Obj *obj = (FILTER_FO_Obj *) handle;
+
+	obj->b0 = b0;
+	obj->b1 = b1;
+
+	return;
+} // end of FILTER_FO_setNumCoeffs() function
+
+// end of file
+

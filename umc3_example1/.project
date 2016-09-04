@@ -171,6 +171,11 @@
 			<locationURI>UMCLIB/drivers/qep/src/32b/f28x/f2806x/qep.c</locationURI>
 		</link>
 		<link>
+			<name>sci.c</name>
+			<type>1</type>
+			<locationURI>UMCLIB/drivers/sci/src/32b/f28x/f2806x/sci.c</locationURI>
+		</link>
+		<link>
 			<name>svgen.c</name>
 			<type>1</type>
 			<locationURI>UMCLIB/modules/svgen/src/32b/svgen.c</locationURI>
