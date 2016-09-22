@@ -13,16 +13,16 @@
 		<item value="false" key="isRegEx"/>
 		<item value="false" key="incremental"/>
 		<item value="false" key="wholeword"/>
-		<item value="crc_ccitt_table" key="selection"/>
+		<item value="enc_elec_angle" key="selection"/>
 		<list key="findhistory">
+			<item value="enc_elec_angle"/>
+			<item value="ENCODER"/>
+			<item value="CTRL_run"/>
+			<item value="enc"/>
 			<item value="crc_ccitt_table"/>
 			<item value="crc_ccitt_update"/>
 			<item value="sciHandle"/>
 			<item value="SCI"/>
-			<item value="frame_handler"/>
-			<item value="PROTO_router"/>
-			<item value="hal"/>
-			<item value="setupSCIa"/>
 		</list>
 		<list key="replacehistory">
 		</list>

@@ -1,0 +1,190 @@
+#include <math.h>
+#include "main.h"
+
+#ifdef FLASH
+#pragma CODE_SECTION(mainISR,"ramfuncs");
+#endif
+
+// Include header files used in the main function
+
+// **************************************************************************
+// the defines
+
+#define LED_BLINK_FREQ_Hz   1
+
+// **************************************************************************
+// the globals
+
+volatile uint16_t crc;
+
+uint_least16_t gCounter_updateGlobals = 0;
+
+CTRL_Handle ctrlHandle;
+
+HAL_Handle halHandle;
+
+USER_Params gUserParams;
+
+HAL_PwmData_t gPwmData = { _IQ(0.0), _IQ(0.0), _IQ(0.0) };
+
+HAL_AdcData_t gAdcData;
+
+//HDLC_Obj *hdlc;
+HDLC_Handle hdlcHandle;
+uint16_t gUpdateDisplay;
+
+// Debug analog conversion function
+void DebugDisplay();
+
+DebugVariables_t gDebugVars;
+
+uint16_t gLEDcnt = 0;
+
+volatile MOTOR_Vars_t gMotorVars = MOTOR_Vars_INIT;
+
+#ifdef FLASH
+// Used for running BackGround in flash, and ISR in RAM
+		extern uint16_t *RamfuncsLoadStart, *RamfuncsLoadEnd, *RamfuncsRunStart;
+#endif
+
+// **************************************************************************
+// the functions
+
+void main(void) {
+
+	// Only used if running from FLASH
+	// Note that the variable FLASH is defined by the project
+#ifdef FLASH
+	// Copy time critical code and Flash setup code to RAM
+	// The RamfuncsLoadStart, RamfuncsLoadEnd, and RamfuncsRunStart
+	// symbols are created by the linker. Refer to the linker files.
+	memCopy((uint16_t *)&RamfuncsLoadStart,(uint16_t *)&RamfuncsLoadEnd,(uint16_t *)&RamfuncsRunStart);
+#endif
+
+	// initialize the hardware abstraction layer
+	halHandle = HAL_init(&hal, sizeof(hal));
+
+	// initialize the user parameters
+	USER_setParams(&gUserParams);
+
+	// set the hardware abstraction layer parameters
+	HAL_setParams(halHandle, &gUserParams);
+
+	// Initialize HDLC protocol system
+	hdlcHandle = HDLC_init(&hdlc, sizeof(hdlc));
+	HDLC_setParams(hdlcHandle, sendSCISimplified, PROTO_router);
+
+	// initialize the interrupt vector table
+	HAL_initIntVectorTable(halHandle);
+
+	// enable the ADC interrupts
+	HAL_enableAdcInts(halHandle);
+
+	// enable the CAN interrupt
+	HAL_enableCANInts(halHandle);
+
+	// enable the SCI interrupt
+	HAL_enableSciRxInts(halHandle);
+
+	// enable global interrupts
+	HAL_enableGlobalInts(halHandle);
+
+	// enable debug interrupts
+	HAL_enableDebugInt(halHandle);
+
+	// disable the PWM
+	HAL_disablePwm(halHandle);
+
+
+	for (;;) {
+
+
+
+
+		if(gUpdateDisplay == true)
+		{
+			gUpdateDisplay = false;
+			DebugDisplay();
+		}
+
+	} // end of for(;;) loop
+
+} // end of main() function
+
+interrupt void mainISR(void) {
+	// toggle status LED
+	if (gLEDcnt++ > (uint_least32_t) (USER_ISR_FREQ_Hz / LED_BLINK_FREQ_Hz)) {
+		//HAL_toggleLed(halHandle, (GPIO_Number_e) GPIO_Number_39);
+		gLEDcnt = 0;
+		gUpdateDisplay = true;
+	}
+
+	// acknowledge the ADC interrupt
+	HAL_acqAdcInt(halHandle, ADC_IntNumber_1);
+
+	// convert the ADC data
+	HAL_readAdcData(halHandle, &gAdcData);
+
+	return;
+} // end of mainISR() function
+
+void DebugDisplay() {
+	//HDLC_FrameDecode(hdlcHandle, signature, 5);
+}
+
+interrupt void Can0ISR(void) {
+	// How should we know which message was received?
+	CAN_clearRxInt(((HAL_Obj *) halHandle)->canHandle,
+	CAN_MBOX_1 | CAN_MBOX_2 | CAN_MBOX_3 | CAN_MBOX_4);
+	HAL_acqCANInt(halHandle);
+	HAL_toggleLed(halHandle, (GPIO_Number_e) GPIO_Number_39);
+	return;
+}
+
+volatile uint16_t data;
+
+interrupt void SciaRxISR(void) {
+
+	HAL_acqSciRxInt(halHandle);
+
+	data = SCI_read(((HAL_Obj *) halHandle)->sciHandle[0]);
+	HDLC_charReceiver(hdlcHandle, data);
+
+	return;
+}
+
+// Wrap for the SCI put data function, so we don't have to pass HAL pointer for SCI
+void sendSCISimplified(uint16_t data) {
+	SCI_putDataBlocking(((HAL_Obj *) halHandle)->sciHandle[0], data);
+}
+
+void PROTO_commandError(void) {
+	uint16_t data[2] = { (uint16_t) RESPONSE_ERROR, 1 };
+	data[0] = RESPONSE_ERROR;
+	HDLC_FrameDecode(hdlcHandle, data, 2);
+}
+
+void PROTO_commandToggleLED(void) {
+	HAL_toggleLed(halHandle, (GPIO_Number_e) GPIO_Number_39);
+}
+
+void PROTO_commandDefault(void) {
+
+}
+
+void PROTO_readSignature(const uint16_t *frameBuffer, uint16_t frameLength) {
+    uint16_t signature[5];
+    signature[0] = RESPONSE_READ_SIGNATURE;
+    signature[1] = 'a'; //Device Signature Byte 1
+    signature[2] = 'h'; //Device Signature Byte 2
+    signature[3] = 'o'; //Device Signature Byte 3
+    signature[4] = 'j'; //Device Signature Byte 4
+    HDLC_FrameDecode(hdlcHandle, signature, 5);
+}
+void PROTO_commandEcho(const uint16_t *frameBuffer, uint16_t frameLength) {
+
+}
+
+//@} //defgroup
+// end of file
+
