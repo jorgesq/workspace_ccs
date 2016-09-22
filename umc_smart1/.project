@@ -76,6 +76,11 @@
 			<locationURI>UMCLIB/modules/ctrl/src/32b/ctrl.c</locationURI>
 		</link>
 		<link>
+			<name>ctrlQEP.c</name>
+			<type>1</type>
+			<locationURI>UMCLIB/modules/ctrl/src/32b/ctrlQEP.c</locationURI>
+		</link>
+		<link>
 			<name>ecan_new.c</name>
 			<type>1</type>
 			<locationURI>UMCLIB/drivers/can/src/32b/f28x/f2806x/ecan_new.c</locationURI>
@@ -214,6 +219,11 @@
 			<name>sci.c</name>
 			<type>1</type>
 			<locationURI>UMCLIB/drivers/sci/src/32b/f28x/f2806x/sci.c</locationURI>
+		</link>
+		<link>
+			<name>smart_ev.c</name>
+			<type>1</type>
+			<locationURI>UMCPROJECT/smart_ev.c</locationURI>
 		</link>
 		<link>
 			<name>spi.c</name>

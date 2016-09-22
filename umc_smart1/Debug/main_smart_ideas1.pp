@@ -26,7 +26,7 @@ main_smart_ideas1.obj: C:/ti/ccsv6/tools/compiler/ti-cgt-c2000_6.4.10/include/ma
 main_smart_ideas1.obj: C:/work/git/umclib/modules/hdlc/src/32b/hdlc.h
 main_smart_ideas1.obj: C:/work/git/umclib/modules/protocol/src/32b/protocol.h
 main_smart_ideas1.obj: C:/work/git/umclib/modules/protocol/src/32b/protocol_commands.h
-main_smart_ideas1.obj: C:/work/git/umclib/modules/ctrl/src/32b/ctrl.h
+main_smart_ideas1.obj: C:/work/git/umclib/modules/ctrl/src/32b/ctrlQEP.h
 main_smart_ideas1.obj: C:/work/git/umclib/modules/clarke/src/32b/clarke.h
 main_smart_ideas1.obj: C:/work/git/umclib/modules/park/src/32b/park.h
 main_smart_ideas1.obj: C:/work/git/umclib/modules/ipark/src/32b/ipark.h
@@ -38,6 +38,7 @@ main_smart_ideas1.obj: C:/work/git/umclib/modules/svgen/src/32b/svgen.h
 main_smart_ideas1.obj: C:/work/git/umclib/modules/traj/src/32b/traj.h
 main_smart_ideas1.obj: C:/work/git/umclib/modules/ctrl/src/32b/ctrl_obj.h
 main_smart_ideas1.obj: C:/work/git/umclib/modules/ctrl/src/ctrl_states.h
+main_smart_ideas1.obj: C:/work/git/umclib/modules/enc/src/32b/enc.h
 main_smart_ideas1.obj: C:/work/git/umclib/modules/hal/boards/umc3/src/hal_obj.h
 main_smart_ideas1.obj: C:/work/git/umclib/drivers/adc/src/32b/f28x/f2806x/adc.h
 main_smart_ideas1.obj: C:/work/git/umclib/drivers/cpu/src/32b/f28x/f2806x/cpu.h
@@ -62,6 +63,7 @@ main_smart_ideas1.obj: C:/work/git/umclib/modules/est/src/est_Flux_states.h
 main_smart_ideas1.obj: C:/work/git/umclib/modules/est/src/est_Ls_states.h
 main_smart_ideas1.obj: C:/work/git/umclib/modules/est/src/est_Rs_states.h
 main_smart_ideas1.obj: C:/work/git/umclib/modules/fast/src/32b/userParams.h
+main_smart_ideas1.obj: C:/work/git/umcapps/tests/umc_smart1/smart_ev.h
 main_smart_ideas1.obj: C:/work/git/umclib/modules/hal/boards/umc3/src/hal.h
 
 C:/work/git/umcapps/tests/umc_smart1/main_smart_ideas1.c: 
@@ -90,7 +92,7 @@ C:/ti/ccsv6/tools/compiler/ti-cgt-c2000_6.4.10/include/math.h:
 C:/work/git/umclib/modules/hdlc/src/32b/hdlc.h: 
 C:/work/git/umclib/modules/protocol/src/32b/protocol.h: 
 C:/work/git/umclib/modules/protocol/src/32b/protocol_commands.h: 
-C:/work/git/umclib/modules/ctrl/src/32b/ctrl.h: 
+C:/work/git/umclib/modules/ctrl/src/32b/ctrlQEP.h: 
 C:/work/git/umclib/modules/clarke/src/32b/clarke.h: 
 C:/work/git/umclib/modules/park/src/32b/park.h: 
 C:/work/git/umclib/modules/ipark/src/32b/ipark.h: 
@@ -102,6 +104,7 @@ C:/work/git/umclib/modules/svgen/src/32b/svgen.h:
 C:/work/git/umclib/modules/traj/src/32b/traj.h: 
 C:/work/git/umclib/modules/ctrl/src/32b/ctrl_obj.h: 
 C:/work/git/umclib/modules/ctrl/src/ctrl_states.h: 
+C:/work/git/umclib/modules/enc/src/32b/enc.h: 
 C:/work/git/umclib/modules/hal/boards/umc3/src/hal_obj.h: 
 C:/work/git/umclib/drivers/adc/src/32b/f28x/f2806x/adc.h: 
 C:/work/git/umclib/drivers/cpu/src/32b/f28x/f2806x/cpu.h: 
@@ -126,4 +129,5 @@ C:/work/git/umclib/modules/est/src/est_Flux_states.h:
 C:/work/git/umclib/modules/est/src/est_Ls_states.h: 
 C:/work/git/umclib/modules/est/src/est_Rs_states.h: 
 C:/work/git/umclib/modules/fast/src/32b/userParams.h: 
+C:/work/git/umcapps/tests/umc_smart1/smart_ev.h: 
 C:/work/git/umclib/modules/hal/boards/umc3/src/hal.h: 
