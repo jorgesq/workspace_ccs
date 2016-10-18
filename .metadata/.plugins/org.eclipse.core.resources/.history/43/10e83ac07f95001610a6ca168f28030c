@@ -1,0 +1,87 @@
+
+// **************************************************************************
+// the includes
+
+// drivers
+
+// modules
+
+// platforms
+#include "defaults.h"
+
+
+// **************************************************************************
+// the defines
+
+
+// **************************************************************************
+// the globals
+
+
+// **************************************************************************
+// the functions
+
+
+extern DEFAULTS_Handle DEFAULTS_init(void *pMemory, const size_t numBytes)
+{
+
+	  DEFAULTS_Handle handle;
+
+	  if(numBytes < sizeof(DEFAULTS_Obj))
+	    return((DEFAULTS_Handle)NULL);
+
+	  // assign the handle
+	  handle = (DEFAULTS_Handle)pMemory;
+	// In case the EEPROM won't work
+
+	def->throttle[0].inverted = false;
+	def->throttle[0].min_adc = _IQ(0.0);
+	def->throttle[0].max_adc = _IQ(0.0);
+	def->throttle[0].min_out = _IQ(0.0);
+	def->throttle[0].max_out = _IQ(1.0);
+	def->throttle[1].inverted = true;
+	def->throttle[1].min_adc = _IQ(0.0);
+	def->throttle[1].max_adc = _IQ(0.0);
+	def->throttle[1].min_out = _IQ(0.0);
+	def->throttle[1].max_out = _IQ(1.0);
+	def->maxDiffPercent = _IQ(20.0);
+
+	def->instaspin.systemFreqMHz = 90.0;
+	def->instaspin.fullscaleFreqHz = 550.0;
+	def->instaspin.fullscaleVoltageV = 60.0;
+	def->instaspin.adcFulscaleVoltageV = 470.0;
+	def->instaspin.fullscaleCurrentA = 251.0;
+	def->instaspin.adcFulscaleCurrentA = 510.0;
+	def->instaspin.numCurrentSensors = 3;
+	def->instaspin.offsetCurrentA = 0;
+	def->instaspin.offsetCurrentB = 0;
+	def->instaspin.offsetCurrentC = 0;
+	def->instaspin.offsetVoltageA = 0;
+	def->instaspin.offsetVoltageB = 0;
+	def->instaspin.offsetVoltageB = 0;
+	def->instaspin.offsetVoltageC = 0;
+	def->instaspin.pwmFreqKHz = 15.0;
+	def->instaspin.voltageFilterPoleHz = 473.464;
+
+	def->motor.encoderLines = 4096;
+	def->motor.motorType = MOTOR_Type_Pm;
+	def->motor.numPolePairs = 4;
+	def->motor.resRotor = NULL;
+	def->motor.resStator = 0.003115789;
+	def->motor.inductanceD = 0.0002503695;
+	def->motor.inductanceQ = 0.0002503695;
+	def->motor.ratedFlux = 0.29;
+	def->motor.magnetizingCurrent = NULL;
+	def->motor.resEstimationCurrent = 5.0;
+	def->motor.indEstimationCurrent = -1.0;
+	def->motor.maxCurrent = 15.0;
+	def->motor.fluxEstimationFrequency = 50.0;
+
+	def->instaspin.deadBandRiseDelayUs = 2.0;
+	def->instaspin.deadBandFallDelayUs = 2.0;
+
+	return;
+}
+
+
+

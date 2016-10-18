@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
+	<section name="">
+		<item value="1000" key="org.eclipse.search.resultpage.limit"/>
+	</section>
 	<section name="DialogBounds_SearchDialog">
 		<item value="575" key="DIALOG_WIDTH"/>
 		<item value="239" key="DIALOG_Y_ORIGIN"/>
@@ -29,14 +32,41 @@
 	<section name="org.eclipse.cdt.ui.pdomSearchViewPage">
 		<item value="true" key="showEnclosingDefinitions"/>
 	</section>
+	<section name="org.eclipse.search.text.FileSearchResultPage">
+		<item value="1000" key="org.eclipse.search.resultpage.limit"/>
+	</section>
 	<section name="TextSearchPage">
 		<item value="false" key="CASE_SENSITIVE"/>
 		<item value="false" key="REG_EX_SEARCH"/>
 		<item value="false" key="SEARCH_DERIVED"/>
 		<item value="false" key="WHOLE_WORD"/>
-		<item value="0" key="HISTORY_SIZE"/>
+		<item value="2" key="HISTORY_SIZE"/>
 		<section name="EXTENSIONS">
 			<item value="*" key="0"/>
+		</section>
+		<section name="HISTORY0">
+			<item value="false" key="isRegExSearch"/>
+			<item value="#include &quot;user.h&quot;" key="textPattern"/>
+			<item value="0" key="scope"/>
+			<item value="true" key="ignoreCase"/>
+			<item value="false" key="isWholeWord"/>
+			<list key="fileNamePatterns">
+				<item value="*"/>
+			</list>
+			<list key="workingSets">
+			</list>
+		</section>
+		<section name="HISTORY1">
+			<item value="false" key="isRegExSearch"/>
+			<item value="#include &quot;user_online.h&quot;" key="textPattern"/>
+			<item value="0" key="scope"/>
+			<item value="true" key="ignoreCase"/>
+			<item value="false" key="isWholeWord"/>
+			<list key="fileNamePatterns">
+				<item value="*"/>
+			</list>
+			<list key="workingSets">
+			</list>
 		</section>
 	</section>
 	<section name="SearchDialog.ScopePart">

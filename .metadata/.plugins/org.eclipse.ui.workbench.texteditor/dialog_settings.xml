@@ -2,29 +2,41 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
 		<item value="257" key="DIALOG_WIDTH"/>
-		<item value="226" key="DIALOG_Y_ORIGIN"/>
-		<item value="1398" key="DIALOG_X_ORIGIN"/>
+		<item value="448" key="DIALOG_Y_ORIGIN"/>
 		<item value="384" key="DIALOG_HEIGHT"/>
+		<item value="642" key="DIALOG_X_ORIGIN"/>
 		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="true" key="wrap"/>
-		<item value="false" key="casesensitive"/>
 		<item value="false" key="isRegEx"/>
+		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="false" key="wholeword"/>
-		<item value="enc_elec_angle" key="selection"/>
+		<item value="def" key="selection"/>
 		<list key="findhistory">
-			<item value="enc_elec_angle"/>
-			<item value="ENCODER"/>
-			<item value="CTRL_run"/>
+			<item value="def"/>
+			<item value="HAL_init"/>
+			<item value="defaults.h"/>
+			<item value="sendSCISimplified"/>
+			<item value="// Wrap for the SCI put data function, so we don&apos;t have to pass HAL pointer for SCI"/>
+			<item value="CTRL_angleDelayComp"/>
 			<item value="enc"/>
-			<item value="crc_ccitt_table"/>
-			<item value="crc_ccitt_update"/>
-			<item value="sciHandle"/>
-			<item value="SCI"/>
+			<item value="HAL_setupI2C"/>
 		</list>
 		<list key="replacehistory">
+			<item value="handle"/>
+			<item value="pUserParams-&gt;estFreq_Hz"/>
+			<item value="pUserParams-&gt;ctrlFreq_Hz"/>
+			<item value="mem-&gt;instaspin.pwmFreqKHz"/>
+			<item value="mem-&gt;instaspin.numCurrentSensor"/>
+			<item value="mem-&gt;motor.resStator"/>
+			<item value="mem-&gt;motor.resRotor"/>
+			<item value="userMaxNegativeIdRefCurrentA"/>
 		</list>
+	</section>
+	<section name="org.eclipse.ui.texteditor.GotoLineAction$GotoLineDialog_dialogBounds">
+		<item value="404" key="DIALOG_Y_ORIGIN"/>
+		<item value="729" key="DIALOG_X_ORIGIN"/>
 	</section>
 </section>

@@ -228,7 +228,7 @@
 		<link>
 			<name>user.c</name>
 			<type>1</type>
-			<locationURI>UMCLIB/modules/user/src/32b/user.c</locationURI>
+			<location>C:/work/git/umclib/modules/user/src/32b/user.c</location>
 		</link>
 		<link>
 			<name>wdog.c</name>

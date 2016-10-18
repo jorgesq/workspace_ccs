@@ -76,6 +76,11 @@
 			<locationURI>UMCLIB/modules/ctrl/src/32b/ctrl.c</locationURI>
 		</link>
 		<link>
+			<name>defaults.c</name>
+			<type>1</type>
+			<locationURI>UMCLIB/platforms/umcdrive3/src/defaults.c</locationURI>
+		</link>
+		<link>
 			<name>ecan_new.c</name>
 			<type>1</type>
 			<locationURI>UMCLIB/drivers/can/src/32b/f28x/f2806x/ecan_new.c</locationURI>
