@@ -1,0 +1,263 @@
+#include <math.h>
+#include "main.h"
+
+#ifdef FLASH
+#pragma CODE_SECTION(mainISR,"ramfuncs");
+#endif
+
+// Include header files used in the main function
+
+// **************************************************************************
+// the defines
+
+#define LED_BLINK_FREQ_Hz   1
+
+// **************************************************************************
+// the globals
+
+volatile uint16_t crc;
+
+volatile MOTOR_Vars_t gMotorVars = MOTOR_Vars_INIT;
+USER_Params gUserParams;
+
+CTRL_Handle ctrlHandle;
+HAL_Handle halHandle;
+
+volatile bool g_sw1=0;
+volatile bool g_sw2=0;
+
+// Encoder angle
+_iq angle = _IQ(0.0);
+HAL_PwmData_t gPwmData = { _IQ(0.0), _IQ(0.0), _IQ(0.0) };
+HAL_AdcData_t gAdcData;
+HAL_AdcSec_t gAdcDataSec = { 0, 0, 0, 0, 0, 0, 0, 0 }; // Contains Current and Voltage ADC readings in global Q format
+
+uint16_t gUpdateDisplay;
+
+volatile uint16_t g_enDCDC = 0;
+volatile uint16_t g_enHV = 0;
+volatile uint16_t g_enIGBT = 0;
+
+// Throttle variables
+_iq throttleA, throttleB, throttleResult;
+bool success;
+
+// Debug analog conversion function
+void DebugDisplay();
+
+DebugVariables_t gDebugVars;
+
+uint16_t gLEDcnt = 0;
+
+// Copy of the EEPROM content for defaults
+DEFAULTS_Memory memory;
+
+#ifdef FLASH
+// Used for running BackGround in flash, and ISR in RAM
+		extern uint16_t *RamfuncsLoadStart, *RamfuncsLoadEnd, *RamfuncsRunStart;
+#endif
+
+// **************************************************************************
+// the functions
+
+void main(void) {
+
+
+
+	// initialize the hardware abstraction layer
+	halHandle = HAL_init(&hal, sizeof(hal));
+	ctrlHandle = CTRL_initCtrl(0, 0); //v1p6 format (06xF and 06xM devices)
+
+	//encHandle = ENC_init(&enc, sizeof(enc));
+	//accelHandle = ACCEL_init(&accelerator, sizeof(accelerator));
+	//ACCEL_setParams(accelHandle, memory.throttle[0],memory.throttle[1],memory.maxDiffPercent);
+
+	MOTORWARE_init(halHandle, ctrlHandle);
+
+	// Initialize HDLC protocol system
+	//hdlcHandle = HDLC_init(&hdlc, sizeof(hdlc));
+	//HDLC_setParams(hdlcHandle, sendSCISimplified, PROTO_router);
+
+	//throttleHandle = THROTTLE_init(&throttle, sizeof(throttle));
+	// We start with non inverted, max = 0, min = 1, output scaled as 0-1
+	//THROTTLE_setParams(throttleHandle, true, _IQ(0.0), _IQ(10.0), _IQ(1.0), _IQ(0.0));
+	//THROTTLE_setup(throttleHandle, _IQ(0.0), g_sw1, g_sw2);
+
+
+	SMART_init(halHandle);
+
+	MOTORWARE_enableInts(halHandle);
+
+	for (;;) {
+		MOTORWARE_runSequencer(halHandle, ctrlHandle, gAdcData);
+		if (gUpdateDisplay == true) {
+			gUpdateDisplay = false;
+			DebugDisplay();
+		}
+
+
+	}
+}
+
+
+interrupt void mainISR(void) {
+	// toggle status LED
+	//if (gLEDcnt++ > (uint_least32_t) (USER_ISR_FREQ_Hz / LED_BLINK_FREQ_Hz)) {
+	if (gLEDcnt++ > (uint_least32_t) (gUserParams.isrFreqHz / LED_BLINK_FREQ_Hz)) {
+		HAL_toggleLed(halHandle, (GPIO_Number_e) GPIO_Number_39);
+		gLEDcnt = 0;
+		gUpdateDisplay = true;
+	}
+
+	// acknowledge the ADC interrupt
+	HAL_acqAdcInt(halHandle, ADC_IntNumber_1);
+
+	// convert the ADC data
+	HAL_readAdcData(halHandle, &gAdcData);
+	HAL_readAdcSecondary(halHandle, &gAdcDataSec);
+
+#ifdef ENCODER
+	// compute the electrical angle
+	ENC_calcElecAngle(encHandle, HAL_getQepPosnCounts(halHandle));
+	angle = ENC_getElecAngle(encHandle);
+	// run the controller
+	CTRL_run(ctrlHandle, halHandle, &gAdcData, &gPwmData, angle, &gUserParams);
+#else
+	CTRL_run(ctrlHandle, halHandle, &gAdcData, &gPwmData, &gUserParams);
+#endif
+
+	// write the PWM compare values
+	HAL_writePwmData(halHandle, &gPwmData);
+
+	// setup the controller
+	CTRL_setup(ctrlHandle);
+	/*
+#ifdef ENCODER
+	  // if we are forcing alignment, using the Rs Recalculation, align the eQEP angle with the rotor angle
+	  if((EST_getState(obj->estHandle) == EST_State_Rs) && (USER_MOTOR_TYPE == MOTOR_Type_Pm))
+	  {
+		  ENC_setZeroOffset(encHandle, (uint32_t)(HAL_getQepPosnMaximum(halHandle) - HAL_getQepPosnCounts(halHandle)));
+	  }
+#endif
+*/
+
+	ACCEL_setup(halHandle->accelHandle, gAdcDataSec.throttle[0], gAdcDataSec.throttle[1], g_sw1, g_sw2);
+	success = ACCEL_getResult(halHandle->accelHandle, &throttleA, &throttleB, &throttleResult);
+
+	// Smart test stuff
+	if (g_enDCDC == 1) {
+		g_enDCDC = 0;
+		SMART_enableDCDC(halHandle);
+	}
+	if (g_enHV == 1) {
+		g_enHV = 0;
+		SMART_enableHV(halHandle);
+	}
+	if (g_enIGBT == 1) {
+		g_enIGBT = 0;
+		SMART_enableIGBT(halHandle);
+	}
+
+	return;
+} // end of mainISR() function
+
+void DebugDisplay() {
+	// Store four channels into OBS memory
+	/*
+	 DlogCh1 = _IQtoQ15(gAdcData.V.value[0]); //_IQtoQ15(InvSine);
+	 DlogCh2 = _IQtoQ15(gAdcData.V.value[1]);
+	 DlogCh3 = _IQtoQ15(gAdcData.I.value[0]);
+	 DlogCh4 = _IQtoQ15(InvSine); //gAdcData.I.value[1]);
+	 dlog.update(&dlog);
+	 */
+	gDebugVars.phase_V[0] = _IQtoF(
+			gAdcData.V.value[0]) * halHandle->memHandle->instaspin.fullscaleVoltageV;
+	gDebugVars.phase_V[1] = _IQtoF(
+			gAdcData.V.value[1]) * halHandle->memHandle->instaspin.fullscaleVoltageV;
+	gDebugVars.phase_V[2] = _IQtoF(
+			gAdcData.V.value[2]) * halHandle->memHandle->instaspin.fullscaleVoltageV;
+
+	gDebugVars.batt_V = _IQtoF(gAdcData.dcBus) * halHandle->memHandle->instaspin.fullscaleVoltageV;
+
+	gDebugVars.phase_A[0] = _IQtoF(
+			gAdcData.I.value[0]) * halHandle->memHandle->instaspin.fullscaleCurrentA;
+	gDebugVars.phase_A[1] = _IQtoF(
+			gAdcData.I.value[1]) * halHandle->memHandle->instaspin.fullscaleCurrentA;
+	gDebugVars.phase_A[2] = _IQtoF(
+			gAdcData.I.value[2]) * halHandle->memHandle->instaspin.fullscaleCurrentA;
+
+	//HDLC_FrameDecode(hdlcHandle, signature, 5);
+}
+
+interrupt void Can0ISR(void) {
+	// How should we know which message was received?
+	CAN_clearRxInt(((HAL_Obj *) halHandle)->canHandle,
+	CAN_MBOX_1 | CAN_MBOX_2 | CAN_MBOX_3 | CAN_MBOX_4);
+	HAL_acqCANInt(halHandle);
+	HAL_toggleLed(halHandle, (GPIO_Number_e) GPIO_Number_39);
+	return;
+}
+
+volatile uint16_t data;
+
+interrupt void SciaRxISR(void) {
+
+	HAL_acqSciRxInt(halHandle);
+
+	//HAL_toggleLed(halHandle, (GPIO_Number_e) GPIO_Number_39);
+	/*
+	 SCI_write(((HAL_Obj *) halHandle)->sciHandle[0],
+	 SCI_read(((HAL_Obj *) halHandle)->sciHandle[0]));
+	 */
+	data = SCI_read(((HAL_Obj *) halHandle)->sciHandle[0]);
+	HDLC_charReceiver(hdlcHandle, data);
+	//SCI_write(((HAL_Obj *) halHandle)->sciHandle[0], data);
+
+	//SCI_clearRxFifoInt(((HAL_Obj *) halHandle)->sciHandle[0]);
+	//SCI_clearRxFifoOvf(((HAL_Obj *) halHandle)->sciHandle[0]);
+
+	return;
+}
+
+interrupt void SpiBTxISR(void) {
+
+
+}
+
+// Wrap for the SCI put data function, so we don't have to pass HAL pointer for SCI
+void sendSCISimplified(uint16_t data) {
+	SCI_putDataBlocking(((HAL_Obj *) halHandle)->sciHandle[0], data);
+}
+
+
+
+void PROTO_commandError(void) {
+	uint16_t data[2] = { (uint16_t) RESPONSE_ERROR, 1 };
+	data[0] = RESPONSE_ERROR;
+	HDLC_FrameDecode(hdlcHandle, data, 2);
+}
+
+void PROTO_commandToggleLED(void) {
+	HAL_toggleLed(halHandle, (GPIO_Number_e) GPIO_Number_39);
+}
+/*
+void PROTO_commandDefault(void) {
+
+}
+*/
+void PROTO_readSignature(const uint16_t *frameBuffer, uint16_t frameLength) {
+	uint16_t signature[5];
+	signature[0] = RESPONSE_READ_SIGNATURE;
+	signature[1] = 'a'; //Device Signature Byte 1
+	signature[2] = 'h'; //Device Signature Byte 2
+	signature[3] = 'o'; //Device Signature Byte 3
+	signature[4] = 'j'; //Device Signature Byte 4
+	HDLC_FrameDecode(hdlcHandle, signature, 5);
+}
+void PROTO_commandEcho(const uint16_t *frameBuffer, uint16_t frameLength) {
+
+}
+
+//@} //defgroup
+// end of file
+

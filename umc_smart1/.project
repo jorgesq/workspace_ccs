@@ -51,6 +51,11 @@
 			<locationURI>UMCLIB/ide/ccs/ccs5/targetConfigs/TMS320F28069_xds100v2.ccxml</locationURI>
 		</link>
 		<link>
+			<name>accelerator.c</name>
+			<type>1</type>
+			<locationURI>UMCLIB/modules/accelerator/src/32b/accelerator.c</locationURI>
+		</link>
+		<link>
 			<name>adc.c</name>
 			<type>1</type>
 			<locationURI>UMCLIB/drivers/adc/src/32b/f28x/f2806x/adc.c</locationURI>
@@ -79,6 +84,11 @@
 			<name>ctrlQEP.c</name>
 			<type>1</type>
 			<locationURI>UMCLIB/modules/ctrl/src/32b/ctrlQEP.c</locationURI>
+		</link>
+		<link>
+			<name>defaults.c</name>
+			<type>1</type>
+			<locationURI>UMCLIB/platforms/umcdrive3/src/defaults.c</locationURI>
 		</link>
 		<link>
 			<name>ecan_new.c</name>
@@ -126,6 +136,11 @@
 			<locationURI>UMCLIB/drivers/i2c/src/32b/f28x/f2806x/i2c.c</locationURI>
 		</link>
 		<link>
+			<name>inv_smart.c</name>
+			<type>1</type>
+			<locationURI>UMCLIB/platforms/inv_smart/src/inv_smart.c</locationURI>
+		</link>
+		<link>
 			<name>ipark.c</name>
 			<type>1</type>
 			<locationURI>UMCLIB/modules/ipark/src/32b/ipark.c</locationURI>
@@ -141,6 +156,11 @@
 			<locationURI>UMCAPPS/tests/umc_periph_test/main.js</locationURI>
 		</link>
 		<link>
+			<name>main_ext1.c</name>
+			<type>1</type>
+			<locationURI>UMCPROJECT/main_ext1.c</locationURI>
+		</link>
+		<link>
 			<name>main_smart_ideas1.c</name>
 			<type>1</type>
 			<locationURI>UMCPROJECT/main_smart_ideas1.c</locationURI>
@@ -149,6 +169,11 @@
 			<name>memCopy.c</name>
 			<type>1</type>
 			<locationURI>UMCLIB/modules/memCopy/src/memCopy.c</locationURI>
+		</link>
+		<link>
+			<name>motorware.c</name>
+			<type>1</type>
+			<locationURI>UMCLIB/modules/motorware/src/32b/motorware.c</locationURI>
 		</link>
 		<link>
 			<name>offset.c</name>
@@ -221,11 +246,6 @@
 			<locationURI>UMCLIB/drivers/sci/src/32b/f28x/f2806x/sci.c</locationURI>
 		</link>
 		<link>
-			<name>smart_ev.c</name>
-			<type>1</type>
-			<locationURI>UMCPROJECT/smart_ev.c</locationURI>
-		</link>
-		<link>
 			<name>spi.c</name>
 			<type>1</type>
 			<locationURI>UMCLIB/drivers/spi/src/32b/f28x/f2806x/spi.c</locationURI>
@@ -234,6 +254,11 @@
 			<name>svgen.c</name>
 			<type>1</type>
 			<locationURI>UMCLIB/modules/svgen/src/32b/svgen.c</locationURI>
+		</link>
+		<link>
+			<name>throttle.c</name>
+			<type>1</type>
+			<locationURI>UMCLIB/modules/throttle/src/32b/throttle.c</locationURI>
 		</link>
 		<link>
 			<name>timer.c</name>
@@ -251,9 +276,9 @@
 			<locationURI>UMCLIB/modules/usDelay/src/32b/f28x/usDelay.asm</locationURI>
 		</link>
 		<link>
-			<name>user.c</name>
+			<name>user_online.c</name>
 			<type>1</type>
-			<locationURI>UMCLIB/modules/user/src/32b/user.c</locationURI>
+			<locationURI>UMCLIB/modules/user/src/32b/user_online.c</locationURI>
 		</link>
 		<link>
 			<name>wdog.c</name>

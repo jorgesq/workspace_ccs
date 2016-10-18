@@ -6,6 +6,9 @@
 		<item value="227191" key="searchFlags"/>
 		<item value="false" key="caseSensitive"/>
 		<list key="previousPatterns">
+			<item value="sendSCISimplified"/>
+			<item value="USER_computeFlux_pu_to_Wb_sf"/>
+			<item value="QEP"/>
 			<item value="EST_State_Error"/>
 			<item value="USER_MOTOR_ENCODER_LINES"/>
 			<item value="TRAJ_init"/>
