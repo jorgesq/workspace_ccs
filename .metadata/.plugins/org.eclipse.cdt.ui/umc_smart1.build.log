@@ -1,0 +1,13 @@
+
+**** Clean-only build of configuration Debug for project umc_smart1 ****
+
+"C:\\ti\\ccsv6\\utils\\bin\\gmake" -k clean 
+DEL /F  "umc_smart1.out"  "umc_smart1.hex" 
+DEL /F "EFile.d" "accelerator.d" "adc.d" "cbuffer.d" "clarke.d" "clk.d" "cpu.d" "crc_utils.d" "ctrlQEP.d" "defaults.d" "ecan_new.d" "enc.d" "filter_fo.d" "flash.d" "gpio.d" "hal.d" "hdlc.d" "i2c.d" "inv_smart.d" "ipark.d" "isr.d" "main_ext1.d" "memCopy.d" "motorware.d" "offset.d" "osc.d" "park.d" "pid.d" "pie.d" "pll.d" "protocol.d" "pwm.d" "pwr.d" "qep.d" "sci.d" "spi.d" "svgen.d" "throttle.d" "timer.d" "traj.d" "user_online.d" "wdog.d" 
+DEL /F "CodeStartBranch.obj" "EFile.obj" "accelerator.obj" "adc.obj" "cbuffer.obj" "clarke.obj" "clk.obj" "cpu.obj" "crc_utils.obj" "ctrlQEP.obj" "defaults.obj" "ecan_new.obj" "enc.obj" "filter_fo.obj" "flash.obj" "gpio.obj" "hal.obj" "hdlc.obj" "i2c.obj" "inv_smart.obj" "ipark.obj" "isr.obj" "main_ext1.obj" "memCopy.obj" "motorware.obj" "offset.obj" "osc.obj" "park.obj" "pid.obj" "pie.obj" "pll.obj" "protocol.obj" "pwm.obj" "pwr.obj" "qep.obj" "sci.obj" "spi.obj" "svgen.obj" "throttle.obj" "timer.obj" "traj.obj" "usDelay.obj" "user_online.obj" "wdog.obj" 
+DEL /F "CodeStartBranch.d" "usDelay.d" 
+Could Not Find C:\work\git\workspace_ccs\umc_smart1\Debug\CodeStartBranch.d
+'Finished clean'
+' '
+
+**** Build Finished ****

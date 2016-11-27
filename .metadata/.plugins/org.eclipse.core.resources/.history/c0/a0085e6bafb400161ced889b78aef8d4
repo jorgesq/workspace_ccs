@@ -1,0 +1,285 @@
+#include <math.h>
+#include "main.h"
+
+#ifdef FLASH
+#pragma CODE_SECTION(mainISR,"ramfuncs");
+#endif
+
+// Include header files used in the main function
+
+// **************************************************************************
+// the defines
+
+
+
+// **************************************************************************
+// the globals
+
+volatile uint16_t crc;
+
+volatile MOTOR_Vars_t gMotorVars = MOTOR_Vars_INIT;
+USER_Params gUserParams;
+
+CTRL_Handle ctrlHandle;
+HAL_Handle halHandle;
+
+volatile bool g_sw1=0;
+volatile bool g_sw2=0;
+
+// Encoder angle
+		_iq angle = _IQ(0.0);
+		HAL_PwmData_t gPwmData = {_IQ(0.0), _IQ(0.0), _IQ(0.0)};
+		HAL_PwmData_t gPwmData2 = {_IQ(0.0), _IQ(0.0), _IQ(0.0)};
+		HAL_AdcData_t gAdcData;
+		HAL_AdcSec_t gAdcDataSec = {0, 0, 0, 0, 0, 0, 0, 0}; // Contains Current and Voltage ADC readings in global Q format
+
+		uint16_t gUpdateDisplay;
+
+		volatile uint16_t g_enDCDC = 0;
+		volatile uint16_t g_enHV = 0;
+		volatile uint16_t g_enIGBT = 0;
+
+// Throttle variables
+		_iq throttleA,
+throttleB, throttleResult;
+
+// Debug analog conversion function
+void DebugDisplay();
+
+DebugVariables_t gDebugVars;
+
+uint16_t gLEDcnt = 0;
+
+#ifdef FLASH
+// Used for running BackGround in flash, and ISR in RAM
+extern uint16_t *RamfuncsLoadStart, *RamfuncsLoadEnd, *RamfuncsRunStart;
+#endif
+
+// **************************************************************************
+// the functions
+
+void main(void) {
+
+	// initialize the hardware abstraction layer
+	halHandle = HAL_init(&hal, sizeof(hal));
+	ctrlHandle = CTRL_initCtrl(0, 0); //v1p6 format (06xF and 06xM devices)
+
+	EFile_init(&EFile,sizeof(EFile),halHandle);
+			EFile_set(efileHandle,(uint32_t *)halHandle->memHandle,sizeof(*halHandle->memHandle));
+			efileStatus = EFile_read(efileHandle,0);
+
+	halHandle->memHandle->instaspin.fullscaleFreqHz = 200.0;
+	halHandle->memHandle->instaspin.fullscaleVoltageV = 200.0; // 60.0 //400
+	halHandle->memHandle->instaspin.adcFulscaleVoltageV = 470.0;
+	halHandle->memHandle->instaspin.fullscaleCurrentA = 881.9951 + 2;
+	halHandle->memHandle->instaspin.adcFulscaleCurrentA = 881.9951 * 2.0;
+	halHandle->memHandle->instaspin.numCurrentSensors = 3;
+	halHandle->memHandle->instaspin.offsetCurrentA = 0; // not propagated for now
+	halHandle->memHandle->instaspin.offsetCurrentB = 0;
+	halHandle->memHandle->instaspin.offsetCurrentC = 0;
+	halHandle->memHandle->instaspin.offsetVoltageA = 0;
+	halHandle->memHandle->instaspin.offsetVoltageB = 0;
+	halHandle->memHandle->instaspin.offsetVoltageB = 0;
+	halHandle->memHandle->instaspin.offsetVoltageC = 0;
+	halHandle->memHandle->instaspin.pwmFreqKHz = 15.0;
+	halHandle->memHandle->instaspin.voltageFilterPoleHz = 473.464;
+
+	halHandle->memHandle->motor.encoderLines = 4096;
+	halHandle->memHandle->motor.motorType = MOTOR_Type_Pm;
+	halHandle->memHandle->motor.numPolePairs = 4;
+	/*
+	 halHandle->memHandle->motor.resRotor = NULL;
+	 halHandle->memHandle->motor.resStator = NULL;//0.003115789;
+	 halHandle->memHandle->motor.inductanceD = NULL;//0.0002503695;
+	 halHandle->memHandle->motor.inductanceQ = NULL;//0.0002503695;
+	 halHandle->memHandle->motor.ratedFlux = NULL;//0.29;
+	 halHandle->memHandle->motor.magnetizingCurrent = NULL;
+	 halHandle->memHandle->motor.resEstimationCurrent = 20.0;//5.0
+	 halHandle->memHandle->motor.indEstimationCurrent = -20.0;
+	 halHandle->memHandle->motor.maxCurrent = 50.0;
+	 halHandle->memHandle->motor.fluxEstimationFrequency = 100.0;//50.0;
+	 */
+	halHandle->memHandle->instaspin.deadBandRiseDelayUs = 2.0;
+	halHandle->memHandle->instaspin.deadBandFallDelayUs = 2.0;
+
+
+
+	MOTORWARE_init(halHandle, ctrlHandle);
+
+	//SMART_init(halHandle);
+
+	MOTORWARE_enableInts(halHandle);
+
+	EFile_writeConfig(efileHandle);
+
+	for (;;) {
+		MOTORWARE_runSequencer_tuning(halHandle, ctrlHandle, gAdcData);
+
+		//SMART_runSequencer(halHandle);
+
+		if (gUpdateDisplay == true) {
+			gUpdateDisplay = false;
+			DebugDisplay();
+		}
+		/*
+		 // Smart test stuff
+		 if (g_enDCDC == 1) {
+		 g_enDCDC = 0;
+		 SMART_enableDCDC(halHandle);
+		 }
+		 //if (g_enHV == 1) {
+		 //	g_enHV = 0;
+		 SMART_enableHV(halHandle);
+		 //}
+		 //if (g_enIGBT == 1) {
+		 //		g_enIGBT = 0;
+		 SMART_enableIGBT(halHandle);
+		 //	}
+
+		 */
+	}
+}
+
+/*
+interrupt void mainISR(void) {
+	// toggle status LED
+	if (gLEDcnt++
+			> (uint_least32_t) (gUserParams.isrFreqHz / LED_BLINK_FREQ_Hz)) {
+		//HAL_toggleLed(halHandle, (GPIO_Number_e) GPIO_Number_39);
+		gLEDcnt = 0;
+		gUpdateDisplay = true;
+	}
+
+	// acknowledge the ADC interrupt
+	HAL_acqAdcInt(halHandle, ADC_IntNumber_1);
+
+	// convert the ADC data
+	HAL_readAdcData(halHandle, &gAdcData);
+	HAL_readAdcSecondary(halHandle, &gAdcDataSec);
+
+	// Resolver angular position
+	HAL_sampleResolverValue(halHandle);
+	angle = HAL_getResolverValue(halHandle);
+
+#ifdef ENCODER
+	// compute the electrical angle
+	ENC_calcElecAngle(halHandle->encHandle, HAL_getQepPosnCounts(halHandle));
+	angle = ENC_getElecAngle(halHandle->encHandle);
+	angle = _IQ(1.0) - angle;
+	// run the controller
+	CTRL_run(ctrlHandle, halHandle, &gAdcData, &gPwmData, angle, &gUserParams);
+#else
+	CTRL_run(ctrlHandle, halHandle, &gAdcData, &gPwmData, &gUserParams);
+	//CTRL_run(ctrlHandle, halHandle, &gAdcData, &gPwmData);
+#endif
+	gPwmData.Tabc.value[0] = -gPwmData.Tabc.value[0];
+	gPwmData.Tabc.value[1] = -gPwmData.Tabc.value[1];
+	gPwmData.Tabc.value[2] = -gPwmData.Tabc.value[2];
+	// write the PWM compare values
+	HAL_writePwmData(halHandle, &gPwmData); // ~!!!!!!!!!11
+
+	// setup the controller
+	CTRL_setup(ctrlHandle);
+
+#ifdef ENCODER
+	// if we are forcing alignment, using the Rs Recalculation, align the eQEP angle with the rotor angle
+	if((EST_getState(ctrlHandle->estHandle) == EST_State_Rs) && (gUserParams.motor_type == MOTOR_Type_Pm))
+	{
+		ENC_setZeroOffset(halHandle->encHandle, (uint32_t)(HAL_getQepPosnMaximum(halHandle) - HAL_getQepPosnCounts(halHandle)));
+	}
+#endif
+
+	ACCEL_setup(halHandle->accelHandle, gAdcDataSec.throttle[0],
+			gAdcDataSec.throttle[1], g_sw1, g_sw2);
+	success = ACCEL_getResult(halHandle->accelHandle, &throttleA, &throttleB,
+			&throttleResult);
+
+	gMotorVars.IqRef_A = _IQmpy(throttleResult, _IQ(40.0));
+
+	return;
+} // end of mainISR() function
+
+*/
+
+void DebugDisplay() {
+	// Store four channels into OBS memory
+	/*
+	 DlogCh1 = _IQtoQ15(gAdcData.V.value[0]); //_IQtoQ15(InvSine);
+	 DlogCh2 = _IQtoQ15(gAdcData.V.value[1]);
+	 DlogCh3 = _IQtoQ15(gAdcData.I.value[0]);
+	 DlogCh4 = _IQtoQ15(InvSine); //gAdcData.I.value[1]);
+	 dlog.update(&dlog);
+	 */
+	gDebugVars.phase_V[0] = _IQtoF(gAdcData.V.value[0])
+			* halHandle->memHandle->instaspin.fullscaleVoltageV;
+	gDebugVars.phase_V[1] = _IQtoF(gAdcData.V.value[1])
+			* halHandle->memHandle->instaspin.fullscaleVoltageV;
+	gDebugVars.phase_V[2] = _IQtoF(gAdcData.V.value[2])
+			* halHandle->memHandle->instaspin.fullscaleVoltageV;
+
+	gDebugVars.batt_V = _IQtoF(gAdcData.dcBus)
+			* halHandle->memHandle->instaspin.fullscaleVoltageV;
+
+	gDebugVars.phase_A[0] = _IQtoF(gAdcData.I.value[0])
+			* halHandle->memHandle->instaspin.fullscaleCurrentA;
+	gDebugVars.phase_A[1] = _IQtoF(gAdcData.I.value[1])
+			* halHandle->memHandle->instaspin.fullscaleCurrentA;
+	gDebugVars.phase_A[2] = _IQtoF(gAdcData.I.value[2])
+			* halHandle->memHandle->instaspin.fullscaleCurrentA;
+
+	//HDLC_FrameDecode(hdlcHandle, signature, 5);
+}
+
+/*
+interrupt void Can0ISR(void) {
+	// How should we know which message was received?
+	CAN_clearRxInt(((HAL_Obj *) halHandle)->canHandle,
+	CAN_MBOX_1 | CAN_MBOX_2 | CAN_MBOX_3 | CAN_MBOX_4);
+	HAL_acqCANInt(halHandle);
+	HAL_toggleLed(halHandle, (GPIO_Number_e) GPIO_Number_39);
+	return;
+}
+
+volatile uint16_t data;
+
+interrupt void SciaRxISR(void) {
+
+	HAL_acqSciRxInt(halHandle);
+
+	data = SCI_read(((HAL_Obj *) halHandle)->sciHandle[0]);
+	HDLC_charReceiver(halHandle->hdlcHandle, data);
+
+	return;
+}
+
+interrupt void SpiBTxISR(void) {
+
+}
+*/
+
+void PROTO_commandError(void) {
+	uint16_t data[2] = { (uint16_t) RESPONSE_ERROR, 1 };
+	data[0] = RESPONSE_ERROR;
+	HDLC_FrameDecode(halHandle->hdlcHandle, data, 2);
+}
+
+void PROTO_commandToggleLED(void) {
+	HAL_toggleLed(halHandle, (GPIO_Number_e) GPIO_Number_39);
+}
+
+void PROTO_readSignature(const uint16_t *frameBuffer, uint16_t frameLength) {
+	uint16_t signature[5];
+	signature[0] = RESPONSE_READ_SIGNATURE;
+	signature[1] = 'a'; //Device Signature Byte 1
+	signature[2] = 'h'; //Device Signature Byte 2
+	signature[3] = 'o'; //Device Signature Byte 3
+	signature[4] = 'j'; //Device Signature Byte 4
+	HDLC_FrameDecode(halHandle->hdlcHandle, signature, 5);
+}
+void PROTO_commandEcho(const uint16_t *frameBuffer, uint16_t frameLength) {
+
+}
+
+//@} //defgroup
+// end of file
+
