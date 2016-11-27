@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Delete resource &apos;umc_smart1/defaults.c&apos;" deleteContents="false" description="Delete resource &apos;umc_smart1/defaults.c&apos;" element1="/umc_smart1/defaults.c" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1476826864122"/>
-</session>
