@@ -36,6 +36,11 @@
 			<locationURI>UMCLIB/drivers/cpu/src/32b/f28x/f2806x/CodeStartBranch.asm</locationURI>
 		</link>
 		<link>
+			<name>EFile.c</name>
+			<type>1</type>
+			<locationURI>UMCLIB/modules/EFile/src/32b/EFile.c</locationURI>
+		</link>
+		<link>
 			<name>F28069F.cmd</name>
 			<type>1</type>
 			<locationURI>UMCLIB/ide/ccs/cmd/f2806x/F28069F.cmd</locationURI>
@@ -61,6 +66,11 @@
 			<locationURI>UMCLIB/drivers/adc/src/32b/f28x/f2806x/adc.c</locationURI>
 		</link>
 		<link>
+			<name>cbuffer.c</name>
+			<type>1</type>
+			<locationURI>UMCLIB/modules/cbuffer/src/cbuffer.c</locationURI>
+		</link>
+		<link>
 			<name>clarke.c</name>
 			<type>1</type>
 			<locationURI>UMCLIB/modules/clarke/src/32b/clarke.c</locationURI>
@@ -74,6 +84,11 @@
 			<name>cpu.c</name>
 			<type>1</type>
 			<locationURI>UMCLIB/drivers/cpu/src/32b/f28x/f2806x/cpu.c</locationURI>
+		</link>
+		<link>
+			<name>crc_utils.c</name>
+			<type>1</type>
+			<locationURI>UMCLIB/modules/crc/src/32b/crc_utils.c</locationURI>
 		</link>
 		<link>
 			<name>ctrl.c</name>
@@ -146,9 +161,9 @@
 			<locationURI>UMCLIB/modules/ipark/src/32b/ipark.c</locationURI>
 		</link>
 		<link>
-			<name>main.c</name>
+			<name>isr.c</name>
 			<type>1</type>
-			<locationURI>UMCPROJECT/main.c</locationURI>
+			<locationURI>UMCPROJECT/isr.c</locationURI>
 		</link>
 		<link>
 			<name>main.js</name>
@@ -159,11 +174,6 @@
 			<name>main_ext1.c</name>
 			<type>1</type>
 			<locationURI>UMCPROJECT/main_ext1.c</locationURI>
-		</link>
-		<link>
-			<name>main_smart_ideas1.c</name>
-			<type>1</type>
-			<locationURI>UMCPROJECT/main_smart_ideas1.c</locationURI>
 		</link>
 		<link>
 			<name>memCopy.c</name>
@@ -204,21 +214,6 @@
 			<name>pll.c</name>
 			<type>1</type>
 			<locationURI>UMCLIB/drivers/pll/src/32b/f28x/f2806x/pll.c</locationURI>
-		</link>
-		<link>
-			<name>proj_lab02d.c</name>
-			<type>1</type>
-			<locationURI>UMCPROJECT/proj_lab02d.c</locationURI>
-		</link>
-		<link>
-			<name>proj_lab03c.c</name>
-			<type>1</type>
-			<locationURI>UMCPROJECT/proj_lab03c.c</locationURI>
-		</link>
-		<link>
-			<name>proj_lab04a.c</name>
-			<type>1</type>
-			<locationURI>UMCPROJECT/proj_lab04a.c</locationURI>
 		</link>
 		<link>
 			<name>protocol.c</name>

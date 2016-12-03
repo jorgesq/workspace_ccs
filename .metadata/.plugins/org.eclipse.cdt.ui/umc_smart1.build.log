@@ -1,17 +1,13 @@
 
-**** Build of configuration Debug for project umc_smart1 ****
+**** Clean-only build of configuration Debug for project umc_smart1 ****
 
-"C:\\ti\\ccsv6\\utils\\bin\\gmake" -k all 
-'Building file: C:/work/git/umclib/modules/hal/boards/umc3/src/hal.c'
-'Invoking: C2000 Compiler'
-"C:/ti/ccsv6/tools/compiler/c2000_15.12.3.LTS/bin/cl2000" -v28 -ml -mt --float_support=fpu32 -O2 --include_path="C:/ti/ccsv6/tools/compiler/c2000_15.12.3.LTS/include" --include_path="C:/work/git/umcapps/tests/umc_smart1/" --include_path="C:/work/git/umclib/modules/hal/boards/umc3/src/" --include_path="C:/work/git/umclib/" -g --define=FAST_ROM_V1p6 --define=ENCODER --display_error_number --diag_warning=225 --diag_wrap=off --preproc_with_compile --preproc_dependency="hal.d"  "C:/work/git/umclib/modules/hal/boards/umc3/src/hal.c"
-'Finished building: C:/work/git/umclib/modules/hal/boards/umc3/src/hal.c'
-' '
-'Building target: umc_smart1.out'
-'Invoking: C2000 Linker'
-"C:/ti/ccsv6/tools/compiler/c2000_15.12.3.LTS/bin/cl2000" -v28 -ml -mt --float_support=fpu32 -O2 -g --define=FAST_ROM_V1p6 --define=ENCODER --display_error_number --diag_warning=225 --diag_wrap=off -z -m"umc_smart1.map" --stack_size=0x3B0 --warn_sections -i"C:/ti/ccsv6/tools/compiler/c2000_15.12.3.LTS/lib" -i"C:/ti/ccsv6/tools/compiler/c2000_15.12.3.LTS/include" --reread_libs --diag_suppress=16002 --diag_wrap=off --display_error_number --xml_link_info="umc_smart1_linkInfo.xml" --rom_model -o "umc_smart1.out" -lrts2800_fpu32.lib "C:/work/git/umclib/modules/fast/lib/32b/f28x/f2806x/2806xRevB_FastSpinROMSymbols_fpu32.lib" "C:/work/git/umclib/modules/iqmath/lib/f28x/float/IQmath_fpu32.lib" "./CodeStartBranch.obj" "./accelerator.obj" "./adc.obj" "./clarke.obj" "./clk.obj" "./cpu.obj" "./ctrlQEP.obj" "./defaults.obj" "./ecan_new.obj" "./enc.obj" "./filter_fo.obj" "./flash.obj" "./gpio.obj" "./hal.obj" "./hdlc.obj" "./i2c.obj" "./inv_smart.obj" "./ipark.obj" "./main_ext1.obj" "./memCopy.obj" "./motorware.obj" "./offset.obj" "./osc.obj" "./park.obj" "./pid.obj" "./pie.obj" "./pll.obj" "./protocol.obj" "./pwm.obj" "./pwr.obj" "./qep.obj" "./sci.obj" "./spi.obj" "./svgen.obj" "./throttle.obj" "./timer.obj" "./traj.obj" "./usDelay.obj" "./user_online.obj" "./wdog.obj" "C:/work/git/umclib/ide/ccs/cmd/f2806x/f28069F_ram_lnk.cmd"  
-<Linking>
-'Finished building target: umc_smart1.out'
+"C:\\ti\\ccsv6\\utils\\bin\\gmake" -k clean 
+DEL /F  "umc_smart1.out"  "umc_smart1.hex" 
+DEL /F "EFile.d" "accelerator.d" "adc.d" "cbuffer.d" "clarke.d" "clk.d" "cpu.d" "crc_utils.d" "ctrlQEP.d" "defaults.d" "ecan_new.d" "enc.d" "filter_fo.d" "flash.d" "gpio.d" "hal.d" "hdlc.d" "i2c.d" "inv_smart.d" "ipark.d" "isr.d" "main_ext1.d" "memCopy.d" "motorware.d" "offset.d" "osc.d" "park.d" "pid.d" "pie.d" "pll.d" "protocol.d" "pwm.d" "pwr.d" "qep.d" "sci.d" "spi.d" "svgen.d" "throttle.d" "timer.d" "traj.d" "user_online.d" "wdog.d" 
+DEL /F "CodeStartBranch.obj" "EFile.obj" "accelerator.obj" "adc.obj" "cbuffer.obj" "clarke.obj" "clk.obj" "cpu.obj" "crc_utils.obj" "ctrlQEP.obj" "defaults.obj" "ecan_new.obj" "enc.obj" "filter_fo.obj" "flash.obj" "gpio.obj" "hal.obj" "hdlc.obj" "i2c.obj" "inv_smart.obj" "ipark.obj" "isr.obj" "main_ext1.obj" "memCopy.obj" "motorware.obj" "offset.obj" "osc.obj" "park.obj" "pid.obj" "pie.obj" "pll.obj" "protocol.obj" "pwm.obj" "pwr.obj" "qep.obj" "sci.obj" "spi.obj" "svgen.obj" "throttle.obj" "timer.obj" "traj.obj" "usDelay.obj" "user_online.obj" "wdog.obj" 
+DEL /F "CodeStartBranch.d" "usDelay.d" 
+Could Not Find C:\work\git\workspace_ccs\umc_smart1\Debug\CodeStartBranch.d
+'Finished clean'
 ' '
 
 **** Build Finished ****

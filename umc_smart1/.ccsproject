@@ -11,5 +11,5 @@
 	<createSlaveProjects value=""/>
 	<templateProperties value="id=com.ti.common.project.core.emptyProjectWithMainTemplate,"/>
 	<isTargetManual value="true"/>
-	<origin value="C:/Dropbox (TeamGVA)/Root/EV/code/workspace_UMCDrive3/umc3_example1"/>
+	<origin value="C:/workspace/CodeComposer/umc_smart1"/>
 </projectOptions>
