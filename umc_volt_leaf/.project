@@ -284,11 +284,11 @@
 	<variableList>
 		<variable>
 			<name>UMCAPPS</name>
-			<value>file:/C:/work/git/umcapps</value>
+			<value>file:/d:/work/git/umcapps</value>
 		</variable>
 		<variable>
 			<name>UMCLIB</name>
-			<value>file:/C:/work/git/umclib</value>
+			<value>file:/d:/work/git/umclib</value>
 		</variable>
 		<variable>
 			<name>UMCPROJECT</name>

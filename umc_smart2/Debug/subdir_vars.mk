@@ -2,6 +2,8 @@
 # Automatically-generated file. Do not edit!
 ################################################################################
 
+SHELL = cmd.exe
+
 # Add inputs and outputs from these tool invocations to the build variables 
 CMD_SRCS += \
 D:/Work/Git/umclib/ide/ccs/cmd/f2806x/f28069F_ram_lnk.cmd 
@@ -64,6 +66,55 @@ D:/Work/Git/umclib/modules/traj/src/32b/traj.c \
 D:/Work/Git/umclib/modules/user/src/32b/user_online.c \
 D:/Work/Git/umclib/drivers/wdog/src/32b/f28x/f2806x/wdog.c 
 
+C_DEPS += \
+./CAN_protocol.d \
+./EFile.d \
+./accelerator.d \
+./adc.d \
+./can_dispatch.d \
+./candrv.d \
+./cbuffer.d \
+./clarke.d \
+./clk.d \
+./cpu.d \
+./crc_utils.d \
+./ctrlQEP.d \
+./defaults.d \
+./dlog4ch.d \
+./ecan_new.d \
+./enc.d \
+./faults.d \
+./filter_fo.d \
+./flash.d \
+./gpio.d \
+./hal.d \
+./hdlc.d \
+./i2c.d \
+./inv_smart.d \
+./ipark.d \
+./isr.d \
+./main.d \
+./memCopy.d \
+./motorware.d \
+./offset.d \
+./osc.d \
+./park.d \
+./pid.d \
+./pie.d \
+./pll.d \
+./protocol.d \
+./pwm.d \
+./pwr.d \
+./qep.d \
+./sci.d \
+./spi.d \
+./svgen.d \
+./throttle.d \
+./timer.d \
+./traj.d \
+./user_online.d \
+./wdog.d 
+
 OBJS += \
 ./CAN_protocol.obj \
 ./CodeStartBranch.obj \
@@ -121,104 +172,6 @@ ASM_DEPS += \
 ./dlog4chc.d \
 ./usDelay.d 
 
-C_DEPS += \
-./CAN_protocol.d \
-./EFile.d \
-./accelerator.d \
-./adc.d \
-./can_dispatch.d \
-./candrv.d \
-./cbuffer.d \
-./clarke.d \
-./clk.d \
-./cpu.d \
-./crc_utils.d \
-./ctrlQEP.d \
-./defaults.d \
-./dlog4ch.d \
-./ecan_new.d \
-./enc.d \
-./faults.d \
-./filter_fo.d \
-./flash.d \
-./gpio.d \
-./hal.d \
-./hdlc.d \
-./i2c.d \
-./inv_smart.d \
-./ipark.d \
-./isr.d \
-./main.d \
-./memCopy.d \
-./motorware.d \
-./offset.d \
-./osc.d \
-./park.d \
-./pid.d \
-./pie.d \
-./pll.d \
-./protocol.d \
-./pwm.d \
-./pwr.d \
-./qep.d \
-./sci.d \
-./spi.d \
-./svgen.d \
-./throttle.d \
-./timer.d \
-./traj.d \
-./user_online.d \
-./wdog.d 
-
-C_DEPS__QUOTED += \
-"CAN_protocol.d" \
-"EFile.d" \
-"accelerator.d" \
-"adc.d" \
-"can_dispatch.d" \
-"candrv.d" \
-"cbuffer.d" \
-"clarke.d" \
-"clk.d" \
-"cpu.d" \
-"crc_utils.d" \
-"ctrlQEP.d" \
-"defaults.d" \
-"dlog4ch.d" \
-"ecan_new.d" \
-"enc.d" \
-"faults.d" \
-"filter_fo.d" \
-"flash.d" \
-"gpio.d" \
-"hal.d" \
-"hdlc.d" \
-"i2c.d" \
-"inv_smart.d" \
-"ipark.d" \
-"isr.d" \
-"main.d" \
-"memCopy.d" \
-"motorware.d" \
-"offset.d" \
-"osc.d" \
-"park.d" \
-"pid.d" \
-"pie.d" \
-"pll.d" \
-"protocol.d" \
-"pwm.d" \
-"pwr.d" \
-"qep.d" \
-"sci.d" \
-"spi.d" \
-"svgen.d" \
-"throttle.d" \
-"timer.d" \
-"traj.d" \
-"user_online.d" \
-"wdog.d" 
-
 OBJS__QUOTED += \
 "CAN_protocol.obj" \
 "CodeStartBranch.obj" \
@@ -270,6 +223,55 @@ OBJS__QUOTED += \
 "usDelay.obj" \
 "user_online.obj" \
 "wdog.obj" 
+
+C_DEPS__QUOTED += \
+"CAN_protocol.d" \
+"EFile.d" \
+"accelerator.d" \
+"adc.d" \
+"can_dispatch.d" \
+"candrv.d" \
+"cbuffer.d" \
+"clarke.d" \
+"clk.d" \
+"cpu.d" \
+"crc_utils.d" \
+"ctrlQEP.d" \
+"defaults.d" \
+"dlog4ch.d" \
+"ecan_new.d" \
+"enc.d" \
+"faults.d" \
+"filter_fo.d" \
+"flash.d" \
+"gpio.d" \
+"hal.d" \
+"hdlc.d" \
+"i2c.d" \
+"inv_smart.d" \
+"ipark.d" \
+"isr.d" \
+"main.d" \
+"memCopy.d" \
+"motorware.d" \
+"offset.d" \
+"osc.d" \
+"park.d" \
+"pid.d" \
+"pie.d" \
+"pll.d" \
+"protocol.d" \
+"pwm.d" \
+"pwr.d" \
+"qep.d" \
+"sci.d" \
+"spi.d" \
+"svgen.d" \
+"throttle.d" \
+"timer.d" \
+"traj.d" \
+"user_online.d" \
+"wdog.d" 
 
 ASM_DEPS__QUOTED += \
 "CodeStartBranch.d" \

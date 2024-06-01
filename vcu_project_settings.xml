@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cdtprojectproperties>
+<section name="org.eclipse.cdt.internal.ui.wizards.settingswizards.IncludePaths">
+<language name="C Source File">
+<includepath>${CG_TOOL_ROOT}/include</includepath>
+<includepath>${SW_ROOT}</includepath>
+<includepath>Debug/${INHERITED_INCLUDE_PATH}</includepath>
+
+</language>
+<language name="Assembly Source File">
+<includepath>${CG_TOOL_ROOT}/include</includepath>
+<includepath>${SW_ROOT}</includepath>
+<includepath>Debug/${INHERITED_INCLUDE_PATH}</includepath>
+
+</language>
+<language name="Assembly Source File">
+<includepath>${CG_TOOL_ROOT}/include</includepath>
+<includepath>${SW_ROOT}</includepath>
+<includepath>Debug/${INHERITED_INCLUDE_PATH}</includepath>
+
+</language>
+<language name="C++ Source File">
+<includepath>${CG_TOOL_ROOT}/include</includepath>
+<includepath>${SW_ROOT}</includepath>
+<includepath>Debug/${INHERITED_INCLUDE_PATH}</includepath>
+
+</language>
+<language name="Linker Command File">
+
+</language>
+<language name="Linker Command File">
+
+</language>
+<language name="Linker Command File">
+
+</language>
+</section>
+<section name="org.eclipse.cdt.internal.ui.wizards.settingswizards.Macros">
+<language name="C Source File">
+<macro>
+<name>ccs</name><value>"ccs"</value>
+</macro>
+<macro>
+<name>PART_TM4C123AE6PM</name><value/>
+</macro>
+<macro>
+<name>${INHERITED_SYMBOLS}</name><value/>
+</macro>
+
+</language>
+<language name="Assembly Source File">
+<macro>
+<name>ccs</name><value>"ccs"</value>
+</macro>
+<macro>
+<name>PART_TM4C123AE6PM</name><value/>
+</macro>
+<macro>
+<name>${INHERITED_SYMBOLS}</name><value/>
+</macro>
+
+</language>
+<language name="Assembly Source File">
+<macro>
+<name>ccs</name><value>"ccs"</value>
+</macro>
+<macro>
+<name>PART_TM4C123AE6PM</name><value/>
+</macro>
+<macro>
+<name>${INHERITED_SYMBOLS}</name><value/>
+</macro>
+
+</language>
+<language name="C++ Source File">
+<macro>
+<name>ccs</name><value>"ccs"</value>
+</macro>
+<macro>
+<name>PART_TM4C123AE6PM</name><value/>
+</macro>
+<macro>
+<name>${INHERITED_SYMBOLS}</name><value/>
+</macro>
+
+</language>
+<language name="Linker Command File">
+
+</language>
+<language name="Linker Command File">
+
+</language>
+<language name="Linker Command File">
+
+</language>
+</section>
+</cdtprojectproperties>

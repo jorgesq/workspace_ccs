@@ -2,6 +2,8 @@
 # Automatically-generated file. Do not edit!
 ################################################################################
 
+SHELL = cmd.exe
+
 # Add inputs and outputs from these tool invocations to the build variables 
 CMD_SRCS += \
 C:/work/git/umclib/ide/ccs/cmd/f2806x/f28069F_ram_lnk.cmd 
@@ -56,6 +58,48 @@ C:/work/git/umclib/modules/traj/src/32b/traj.c \
 C:/work/git/umclib/modules/user/src/32b/user_online.c \
 C:/work/git/umclib/drivers/wdog/src/32b/f28x/f2806x/wdog.c 
 
+C_DEPS += \
+./accelerator.d \
+./adc.d \
+./cbuffer.d \
+./clarke.d \
+./clk.d \
+./cpu.d \
+./crc_utils.d \
+./ctrl.d \
+./defaults.d \
+./ecan_new.d \
+./enc.d \
+./filter_fo.d \
+./flash.d \
+./gpio.d \
+./hal.d \
+./hdlc.d \
+./i2c.d \
+./ipark.d \
+./isr.d \
+./main.d \
+./memCopy.d \
+./offset.d \
+./osc.d \
+./park.d \
+./pid.d \
+./pie.d \
+./pll.d \
+./protocol.d \
+./pwm.d \
+./pwr.d \
+./qep.d \
+./sci.d \
+./spi.d \
+./svgen.d \
+./tesla.d \
+./throttle.d \
+./timer.d \
+./traj.d \
+./user_online.d \
+./wdog.d 
+
 OBJS += \
 ./CodeStartBranch.obj \
 ./accelerator.obj \
@@ -104,90 +148,6 @@ ASM_DEPS += \
 ./CodeStartBranch.d \
 ./usDelay.d 
 
-C_DEPS += \
-./accelerator.d \
-./adc.d \
-./cbuffer.d \
-./clarke.d \
-./clk.d \
-./cpu.d \
-./crc_utils.d \
-./ctrl.d \
-./defaults.d \
-./ecan_new.d \
-./enc.d \
-./filter_fo.d \
-./flash.d \
-./gpio.d \
-./hal.d \
-./hdlc.d \
-./i2c.d \
-./ipark.d \
-./isr.d \
-./main.d \
-./memCopy.d \
-./offset.d \
-./osc.d \
-./park.d \
-./pid.d \
-./pie.d \
-./pll.d \
-./protocol.d \
-./pwm.d \
-./pwr.d \
-./qep.d \
-./sci.d \
-./spi.d \
-./svgen.d \
-./tesla.d \
-./throttle.d \
-./timer.d \
-./traj.d \
-./user_online.d \
-./wdog.d 
-
-C_DEPS__QUOTED += \
-"accelerator.d" \
-"adc.d" \
-"cbuffer.d" \
-"clarke.d" \
-"clk.d" \
-"cpu.d" \
-"crc_utils.d" \
-"ctrl.d" \
-"defaults.d" \
-"ecan_new.d" \
-"enc.d" \
-"filter_fo.d" \
-"flash.d" \
-"gpio.d" \
-"hal.d" \
-"hdlc.d" \
-"i2c.d" \
-"ipark.d" \
-"isr.d" \
-"main.d" \
-"memCopy.d" \
-"offset.d" \
-"osc.d" \
-"park.d" \
-"pid.d" \
-"pie.d" \
-"pll.d" \
-"protocol.d" \
-"pwm.d" \
-"pwr.d" \
-"qep.d" \
-"sci.d" \
-"spi.d" \
-"svgen.d" \
-"tesla.d" \
-"throttle.d" \
-"timer.d" \
-"traj.d" \
-"user_online.d" \
-"wdog.d" 
-
 OBJS__QUOTED += \
 "CodeStartBranch.obj" \
 "accelerator.obj" \
@@ -231,6 +191,48 @@ OBJS__QUOTED += \
 "usDelay.obj" \
 "user_online.obj" \
 "wdog.obj" 
+
+C_DEPS__QUOTED += \
+"accelerator.d" \
+"adc.d" \
+"cbuffer.d" \
+"clarke.d" \
+"clk.d" \
+"cpu.d" \
+"crc_utils.d" \
+"ctrl.d" \
+"defaults.d" \
+"ecan_new.d" \
+"enc.d" \
+"filter_fo.d" \
+"flash.d" \
+"gpio.d" \
+"hal.d" \
+"hdlc.d" \
+"i2c.d" \
+"ipark.d" \
+"isr.d" \
+"main.d" \
+"memCopy.d" \
+"offset.d" \
+"osc.d" \
+"park.d" \
+"pid.d" \
+"pie.d" \
+"pll.d" \
+"protocol.d" \
+"pwm.d" \
+"pwr.d" \
+"qep.d" \
+"sci.d" \
+"spi.d" \
+"svgen.d" \
+"tesla.d" \
+"throttle.d" \
+"timer.d" \
+"traj.d" \
+"user_online.d" \
+"wdog.d" 
 
 ASM_DEPS__QUOTED += \
 "CodeStartBranch.d" \
